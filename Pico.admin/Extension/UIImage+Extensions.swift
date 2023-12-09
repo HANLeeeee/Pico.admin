@@ -21,13 +21,4 @@ extension UIImage {
         }
         return 0
     }
-    
-    // UIGraphicsBeginImageContextWithOptions 이거 없어질 친구니까 변경해야함
-    func resized(toSize newSize: CGSize) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0)
-        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage ?? self
-    }
 }

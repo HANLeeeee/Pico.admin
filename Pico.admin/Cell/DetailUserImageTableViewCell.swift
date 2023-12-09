@@ -58,7 +58,7 @@ final class DetailUserImageTableViewCell: UITableViewCell {
             imageView.frame = CGRect(x: UIScreen.main.bounds.width * CGFloat(index),
                                      y: 0,
                                      width: UIScreen.main.bounds.width,
-                                     height: UserImageViewControllConstraint.height)
+                                     height: UIScreen.main.bounds.height * 0.6)
             scrollView.addSubview(imageView)
         }
     }

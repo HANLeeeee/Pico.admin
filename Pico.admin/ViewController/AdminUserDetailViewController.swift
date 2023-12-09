@@ -10,7 +10,7 @@ import SnapKit
 import RxSwift
 
 struct UserImage {
-    static let height: CGFloat = Screen.height * 0.6
+    static let height: CGFloat = UIScreen.main.bounds.height * 0.6
 }
 
 final class AdminUserDetailViewController: UIViewController {

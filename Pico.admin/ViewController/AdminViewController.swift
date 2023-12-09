@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-final class AdminViewController: AdminBaseViewController {
+final class AdminViewController: UIViewController {
     
     private let viewControllers = [
         UINavigationController(rootViewController: AdminUserViewController(viewModel: AdminUserViewModel())),
@@ -57,7 +57,25 @@ final class AdminViewController: AdminBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configNavigationLogo()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.leftBarButtonItem = nil
+        navigationItem.hidesBackButton = true
+        configNavigationBackButton()
+    }
+    
+    private func configUI() {
+        view.configBackgroundColor()
         view.tappedDismissKeyboard()
+        configNavigationBgColor()
         addViews()
         makeConstraints()
         configNavigationBarButton()
@@ -94,9 +112,9 @@ final class AdminViewController: AdminBaseViewController {
     }
     
     @objc private func tappedBarButton() {
-        showCustomAlert(alertType: .canCancel, titleText: "나가기", messageText: "로그인화면으로 이동하시겠습니까 ?", confirmButtonText: "확인", comfrimAction: {
-            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootView(UINavigationController(rootViewController: SignViewController()), animated: true)
-        })
+//        showCustomAlert(alertType: .canCancel, titleText: "나가기", messageText: "로그인화면으로 이동하시겠습니까 ?", confirmButtonText: "확인", comfrimAction: {
+//            (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootView(UINavigationController(rootViewController: SignViewController()), animated: true)
+//        })
     }
 }
 

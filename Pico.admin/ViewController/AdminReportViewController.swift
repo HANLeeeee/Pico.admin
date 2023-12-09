@@ -107,7 +107,6 @@ final class AdminReportViewController: UIViewController {
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { viewController, _ in
-                viewController.searchButton.tappedAnimation()
                 let text = viewController.textFieldView.textField.text
                 viewController.searchButtonPublisher.onNext(text ?? "")
                 viewController.scrollToTop()

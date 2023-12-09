@@ -10,9 +10,7 @@
 		B1A39D132B2238E30050A33E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D122B2238E30050A33E /* AppDelegate.swift */; };
 		B1A39D152B2238E30050A33E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D142B2238E30050A33E /* SceneDelegate.swift */; };
 		B1A39D172B2238E30050A33E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D162B2238E30050A33E /* ViewController.swift */; };
-		B1A39D1A2B2238E30050A33E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1A39D182B2238E30050A33E /* Main.storyboard */; };
 		B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1A39D1B2B2238E80050A33E /* Assets.xcassets */; };
-		B1A39D1F2B2238E80050A33E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1A39D1D2B2238E80050A33E /* LaunchScreen.storyboard */; };
 		B1A39D2A2B2238E90050A33E /* pico_adminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D292B2238E90050A33E /* pico_adminTests.swift */; };
 		B1A39D342B2238E90050A33E /* pico_adminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D332B2238E90050A33E /* pico_adminUITests.swift */; };
 		B1A39D362B2238E90050A33E /* pico_adminUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D352B2238E90050A33E /* pico_adminUITestsLaunchTests.swift */; };
@@ -28,8 +26,45 @@
 		B1A39D5C2B22398E0050A33E /* DetailUserImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4E2B22398E0050A33E /* DetailUserImageTableViewCell.swift */; };
 		B1A39D5D2B22398E0050A33E /* DetailUserInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4F2B22398E0050A33E /* DetailUserInfoTableViewCell.swift */; };
 		B1A39D5E2B22398E0050A33E /* AdminReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D502B22398E0050A33E /* AdminReportViewController.swift */; };
-		B1A39D5F2B22398E0050A33E /* AdminBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D512B22398E0050A33E /* AdminBaseViewController.swift */; };
 		B1A39D602B22398E0050A33E /* AdminUserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D522B22398E0050A33E /* AdminUserDetailViewController.swift */; };
+		B1A594852B24706000565C8C /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B1A594842B24706000565C8C /* SnapKit */; };
+		B1A594882B24708100565C8C /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B1A594872B24708100565C8C /* Kingfisher */; };
+		B1A5948B2B24709800565C8C /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = B1A5948A2B24709800565C8C /* RxCocoa */; };
+		B1A5948E2B2470E200565C8C /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B1A5948D2B2470E200565C8C /* RxSwift */; };
+		B1A594932B2471E400565C8C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B1A594922B2471E400565C8C /* FirebaseFirestore */; };
+		B1A594952B2471E400565C8C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = B1A594942B2471E400565C8C /* FirebaseStorage */; };
+		B1A594972B2472AA00565C8C /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594962B2472A900565C8C /* ViewModelType.swift */; };
+		B1A5949D2B24739000565C8C /* FirestoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A5949C2B24739000565C8C /* FirestoreService.swift */; };
+		B1A594A02B2473E900565C8C /* Encodable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A5949F2B2473E900565C8C /* Encodable+Extensions.swift */; };
+		B1A594A22B24742B00565C8C /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B1A594A12B24742B00565C8C /* FirebaseFirestoreSwift */; };
+		B1A594A42B24746400565C8C /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594A32B24746300565C8C /* UIView+Extensions.swift */; };
+		B1A594A72B24748A00565C8C /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594A52B24748A00565C8C /* UIColor+Extensions.swift */; };
+		B1A594A82B24748A00565C8C /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594A62B24748A00565C8C /* UIFont+Extensions.swift */; };
+		B1A594AB2B2474DC00565C8C /* CommonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594AA2B2474DC00565C8C /* CommonTextField.swift */; };
+		B1A594AD2B24754500565C8C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594AC2B24754500565C8C /* UIViewController+Extensions.swift */; };
+		B1A594AF2B24756D00565C8C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594AE2B24756D00565C8C /* User.swift */; };
+		B1A594B12B24757A00565C8C /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594B02B24757A00565C8C /* Report.swift */; };
+		B1A594B42B2475A700565C8C /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594B22B2475A700565C8C /* LoadingAnimationView.swift */; };
+		B1A594B52B2475A700565C8C /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594B32B2475A700565C8C /* Loading.swift */; };
+		B1A594B72B2475D700565C8C /* UILabel+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594B62B2475D700565C8C /* UILabel+Extensions.swift */; };
+		B1A594B92B2475FC00565C8C /* MBTILabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594B82B2475FC00565C8C /* MBTILabelView.swift */; };
+		B1A594BC2B24764600565C8C /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594BA2B24764600565C8C /* UICollectionView+Extensions.swift */; };
+		B1A594BD2B24764600565C8C /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594BB2B24764600565C8C /* UITableView+Extensions.swift */; };
+		B1A594BF2B24767800565C8C /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594BE2B24767700565C8C /* Array+Extensions.swift */; };
+		B1A594C12B2476D700565C8C /* CustomPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594C02B2476D700565C8C /* CustomPopupViewController.swift */; };
+		B1A594C32B24779A00565C8C /* MBTI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594C22B24779A00565C8C /* MBTI.swift */; };
+		B1A594C52B2477BD00565C8C /* Payment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594C42B2477BD00565C8C /* Payment.swift */; };
+		B1A594C72B2477EE00565C8C /* CustomIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594C62B2477EE00565C8C /* CustomIndicator.swift */; };
+		B1A594C92B24780800565C8C /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594C82B24780800565C8C /* Double+Extensions.swift */; };
+		B1A594CB2B24782E00565C8C /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594CA2B24782E00565C8C /* Int+Extensions.swift */; };
+		B1A594CD2B24784C00565C8C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594CC2B24784C00565C8C /* String+Extensions.swift */; };
+		B1A594CF2B24792700565C8C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594CE2B24792700565C8C /* Location.swift */; };
+		B1A594D12B24793200565C8C /* SubInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594D02B24793200565C8C /* SubInfo.swift */; };
+		B1A594D32B24796A00565C8C /* Block.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594D22B24796A00565C8C /* Block.swift */; };
+		B1A594D52B24797100565C8C /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594D42B24797100565C8C /* Like.swift */; };
+		B1A594D72B2479BA00565C8C /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594D62B2479BA00565C8C /* UIImage+Extensions.swift */; };
+		B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */; };
+		B1A594E52B247E8700565C8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A594E42B247E8700565C8C /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,17 +85,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B1A39D0F2B2238E30050A33E /* pico.admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pico.admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A39D0F2B2238E30050A33E /* Pico.admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pico.admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D122B2238E30050A33E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1A39D142B2238E30050A33E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B1A39D162B2238E30050A33E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B1A39D192B2238E30050A33E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B1A39D1B2B2238E80050A33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B1A39D1E2B2238E80050A33E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1A39D202B2238E80050A33E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B1A39D252B2238E90050A33E /* pico.adminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pico.adminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A39D252B2238E90050A33E /* Pico.adminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pico.adminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D292B2238E90050A33E /* pico_adminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminTests.swift; sourceTree = "<group>"; };
-		B1A39D2F2B2238E90050A33E /* pico.adminUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pico.adminUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B1A39D2F2B2238E90050A33E /* Pico.adminUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pico.adminUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D332B2238E90050A33E /* pico_adminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminUITests.swift; sourceTree = "<group>"; };
 		B1A39D352B2238E90050A33E /* pico_adminUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B1A39D442B22398E0050A33E /* AdminReportViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminReportViewModel.swift; sourceTree = "<group>"; };
@@ -75,8 +108,38 @@
 		B1A39D4E2B22398E0050A33E /* DetailUserImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserImageTableViewCell.swift; sourceTree = "<group>"; };
 		B1A39D4F2B22398E0050A33E /* DetailUserInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailUserInfoTableViewCell.swift; sourceTree = "<group>"; };
 		B1A39D502B22398E0050A33E /* AdminReportViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminReportViewController.swift; sourceTree = "<group>"; };
-		B1A39D512B22398E0050A33E /* AdminBaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminBaseViewController.swift; sourceTree = "<group>"; };
 		B1A39D522B22398E0050A33E /* AdminUserDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminUserDetailViewController.swift; sourceTree = "<group>"; };
+		B1A594962B2472A900565C8C /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		B1A5949C2B24739000565C8C /* FirestoreService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirestoreService.swift; sourceTree = "<group>"; };
+		B1A5949F2B2473E900565C8C /* Encodable+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Encodable+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594A32B24746300565C8C /* UIView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594A52B24748A00565C8C /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594A62B24748A00565C8C /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594AA2B2474DC00565C8C /* CommonTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTextField.swift; sourceTree = "<group>"; };
+		B1A594AC2B24754500565C8C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594AE2B24756D00565C8C /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B1A594B02B24757A00565C8C /* Report.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		B1A594B22B2475A700565C8C /* LoadingAnimationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
+		B1A594B32B2475A700565C8C /* Loading.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
+		B1A594B62B2475D700565C8C /* UILabel+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594B82B2475FC00565C8C /* MBTILabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTILabelView.swift; sourceTree = "<group>"; };
+		B1A594BA2B24764600565C8C /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594BB2B24764600565C8C /* UITableView+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594BE2B24767700565C8C /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594C02B2476D700565C8C /* CustomPopupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomPopupViewController.swift; sourceTree = "<group>"; };
+		B1A594C22B24779A00565C8C /* MBTI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBTI.swift; sourceTree = "<group>"; };
+		B1A594C42B2477BD00565C8C /* Payment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Payment.swift; sourceTree = "<group>"; };
+		B1A594C62B2477EE00565C8C /* CustomIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIndicator.swift; sourceTree = "<group>"; };
+		B1A594C82B24780800565C8C /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594CA2B24782E00565C8C /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594CC2B24784C00565C8C /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594CE2B24792700565C8C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		B1A594D02B24793200565C8C /* SubInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubInfo.swift; sourceTree = "<group>"; };
+		B1A594D22B24796A00565C8C /* Block.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Block.swift; sourceTree = "<group>"; };
+		B1A594D42B24797100565C8C /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		B1A594D62B2479BA00565C8C /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B1A594E42B247E8700565C8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +147,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1A5948B2B24709800565C8C /* RxCocoa in Frameworks */,
+				B1A594882B24708100565C8C /* Kingfisher in Frameworks */,
+				B1A5948E2B2470E200565C8C /* RxSwift in Frameworks */,
+				B1A594A22B24742B00565C8C /* FirebaseFirestoreSwift in Frameworks */,
+				B1A594932B2471E400565C8C /* FirebaseFirestore in Frameworks */,
+				B1A594852B24706000565C8C /* SnapKit in Frameworks */,
+				B1A594952B2471E400565C8C /* FirebaseStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,31 +177,37 @@
 		B1A39D062B2238E30050A33E = {
 			isa = PBXGroup;
 			children = (
-				B1A39D112B2238E30050A33E /* pico.admin */,
+				B1A39D112B2238E30050A33E /* Pico.admin */,
 				B1A39D282B2238E90050A33E /* pico.adminTests */,
 				B1A39D322B2238E90050A33E /* pico.adminUITests */,
 				B1A39D102B2238E30050A33E /* Products */,
+				B1A5948C2B2470D400565C8C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
 		B1A39D102B2238E30050A33E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B1A39D0F2B2238E30050A33E /* pico.admin.app */,
-				B1A39D252B2238E90050A33E /* pico.adminTests.xctest */,
-				B1A39D2F2B2238E90050A33E /* pico.adminUITests.xctest */,
+				B1A39D0F2B2238E30050A33E /* Pico.admin.app */,
+				B1A39D252B2238E90050A33E /* Pico.adminTests.xctest */,
+				B1A39D2F2B2238E90050A33E /* Pico.adminUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B1A39D112B2238E30050A33E /* pico.admin */ = {
+		B1A39D112B2238E30050A33E /* Pico.admin */ = {
 			isa = PBXGroup;
 			children = (
 				B1A594812B246FB100565C8C /* Config */,
+				B1A594992B2472F300565C8C /* Service */,
+				B1A5949E2B2473B700565C8C /* Extension */,
+				B1A594A92B2474C300565C8C /* Utils */,
+				B1A594982B2472E900565C8C /* Model */,
 				B1A39D432B22398E0050A33E /* ViewModel */,
-				B1A39D422B22398E0050A33E /* Admin */,
+				B1A594822B246FFF00565C8C /* ViewController */,
+				B1A39D492B22398E0050A33E /* Cell */,
 			);
-			path = pico.admin;
+			path = Pico.admin;
 			sourceTree = "<group>";
 		};
 		B1A39D282B2238E90050A33E /* pico.adminTests */ = {
@@ -151,22 +227,10 @@
 			path = pico.adminUITests;
 			sourceTree = "<group>";
 		};
-		B1A39D422B22398E0050A33E /* Admin */ = {
-			isa = PBXGroup;
-			children = (
-				B1A39D472B22398E0050A33E /* AdminViewController.swift */,
-				B1A39D482B22398E0050A33E /* AdminUserViewController.swift */,
-				B1A39D492B22398E0050A33E /* Cell */,
-				B1A39D502B22398E0050A33E /* AdminReportViewController.swift */,
-				B1A39D512B22398E0050A33E /* AdminBaseViewController.swift */,
-				B1A39D522B22398E0050A33E /* AdminUserDetailViewController.swift */,
-			);
-			path = Admin;
-			sourceTree = "<group>";
-		};
 		B1A39D432B22398E0050A33E /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B1A594962B2472A900565C8C /* ViewModelType.swift */,
 				B1A39D442B22398E0050A33E /* AdminReportViewModel.swift */,
 				B1A39D452B22398E0050A33E /* AdminUserDetailViewModel.swift */,
 				B1A39D462B22398E0050A33E /* AdminUserViewModel.swift */,
@@ -193,20 +257,94 @@
 				B1A39D122B2238E30050A33E /* AppDelegate.swift */,
 				B1A39D142B2238E30050A33E /* SceneDelegate.swift */,
 				B1A39D162B2238E30050A33E /* ViewController.swift */,
-				B1A39D182B2238E30050A33E /* Main.storyboard */,
 				B1A39D1B2B2238E80050A33E /* Assets.xcassets */,
-				B1A39D1D2B2238E80050A33E /* LaunchScreen.storyboard */,
 				B1A39D202B2238E80050A33E /* Info.plist */,
+				B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */,
+				B1A594E42B247E8700565C8C /* GoogleService-Info.plist */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		B1A594822B246FFF00565C8C /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B1A39D472B22398E0050A33E /* AdminViewController.swift */,
+				B1A39D482B22398E0050A33E /* AdminUserViewController.swift */,
+				B1A39D502B22398E0050A33E /* AdminReportViewController.swift */,
+				B1A39D522B22398E0050A33E /* AdminUserDetailViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B1A5948C2B2470D400565C8C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B1A594982B2472E900565C8C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B1A594AE2B24756D00565C8C /* User.swift */,
+				B1A594CE2B24792700565C8C /* Location.swift */,
+				B1A594D02B24793200565C8C /* SubInfo.swift */,
+				B1A594D42B24797100565C8C /* Like.swift */,
+				B1A594B02B24757A00565C8C /* Report.swift */,
+				B1A594D22B24796A00565C8C /* Block.swift */,
+				B1A594C22B24779A00565C8C /* MBTI.swift */,
+				B1A594C42B2477BD00565C8C /* Payment.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B1A594992B2472F300565C8C /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B1A5949C2B24739000565C8C /* FirestoreService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B1A5949E2B2473B700565C8C /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B1A594A52B24748A00565C8C /* UIColor+Extensions.swift */,
+				B1A594A62B24748A00565C8C /* UIFont+Extensions.swift */,
+				B1A594A32B24746300565C8C /* UIView+Extensions.swift */,
+				B1A594AC2B24754500565C8C /* UIViewController+Extensions.swift */,
+				B1A594B62B2475D700565C8C /* UILabel+Extensions.swift */,
+				B1A594BB2B24764600565C8C /* UITableView+Extensions.swift */,
+				B1A594BA2B24764600565C8C /* UICollectionView+Extensions.swift */,
+				B1A594D62B2479BA00565C8C /* UIImage+Extensions.swift */,
+				B1A594BE2B24767700565C8C /* Array+Extensions.swift */,
+				B1A594CC2B24784C00565C8C /* String+Extensions.swift */,
+				B1A594CA2B24782E00565C8C /* Int+Extensions.swift */,
+				B1A594C82B24780800565C8C /* Double+Extensions.swift */,
+				B1A5949F2B2473E900565C8C /* Encodable+Extensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		B1A594A92B2474C300565C8C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B1A594AA2B2474DC00565C8C /* CommonTextField.swift */,
+				B1A594B32B2475A700565C8C /* Loading.swift */,
+				B1A594B22B2475A700565C8C /* LoadingAnimationView.swift */,
+				B1A594B82B2475FC00565C8C /* MBTILabelView.swift */,
+				B1A594C02B2476D700565C8C /* CustomPopupViewController.swift */,
+				B1A594C62B2477EE00565C8C /* CustomIndicator.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B1A39D0E2B2238E30050A33E /* pico.admin */ = {
+		B1A39D0E2B2238E30050A33E /* Pico.admin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1A39D392B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.admin" */;
+			buildConfigurationList = B1A39D392B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.admin" */;
 			buildPhases = (
 				B1A39D0B2B2238E30050A33E /* Sources */,
 				B1A39D0C2B2238E30050A33E /* Frameworks */,
@@ -216,14 +354,23 @@
 			);
 			dependencies = (
 			);
-			name = pico.admin;
+			name = Pico.admin;
+			packageProductDependencies = (
+				B1A594842B24706000565C8C /* SnapKit */,
+				B1A594872B24708100565C8C /* Kingfisher */,
+				B1A5948A2B24709800565C8C /* RxCocoa */,
+				B1A5948D2B2470E200565C8C /* RxSwift */,
+				B1A594922B2471E400565C8C /* FirebaseFirestore */,
+				B1A594942B2471E400565C8C /* FirebaseStorage */,
+				B1A594A12B24742B00565C8C /* FirebaseFirestoreSwift */,
+			);
 			productName = pico.admin;
-			productReference = B1A39D0F2B2238E30050A33E /* pico.admin.app */;
+			productReference = B1A39D0F2B2238E30050A33E /* Pico.admin.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B1A39D242B2238E90050A33E /* pico.adminTests */ = {
+		B1A39D242B2238E90050A33E /* Pico.adminTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1A39D3C2B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.adminTests" */;
+			buildConfigurationList = B1A39D3C2B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.adminTests" */;
 			buildPhases = (
 				B1A39D212B2238E90050A33E /* Sources */,
 				B1A39D222B2238E90050A33E /* Frameworks */,
@@ -234,14 +381,14 @@
 			dependencies = (
 				B1A39D272B2238E90050A33E /* PBXTargetDependency */,
 			);
-			name = pico.adminTests;
+			name = Pico.adminTests;
 			productName = pico.adminTests;
-			productReference = B1A39D252B2238E90050A33E /* pico.adminTests.xctest */;
+			productReference = B1A39D252B2238E90050A33E /* Pico.adminTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		B1A39D2E2B2238E90050A33E /* pico.adminUITests */ = {
+		B1A39D2E2B2238E90050A33E /* Pico.adminUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B1A39D3F2B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.adminUITests" */;
+			buildConfigurationList = B1A39D3F2B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.adminUITests" */;
 			buildPhases = (
 				B1A39D2B2B2238E90050A33E /* Sources */,
 				B1A39D2C2B2238E90050A33E /* Frameworks */,
@@ -252,9 +399,9 @@
 			dependencies = (
 				B1A39D312B2238E90050A33E /* PBXTargetDependency */,
 			);
-			name = pico.adminUITests;
+			name = Pico.adminUITests;
 			productName = pico.adminUITests;
-			productReference = B1A39D2F2B2238E90050A33E /* pico.adminUITests.xctest */;
+			productReference = B1A39D2F2B2238E90050A33E /* Pico.adminUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -280,22 +427,29 @@
 					};
 				};
 			};
-			buildConfigurationList = B1A39D0A2B2238E30050A33E /* Build configuration list for PBXProject "pico.admin" */;
+			buildConfigurationList = B1A39D0A2B2238E30050A33E /* Build configuration list for PBXProject "Pico.admin" */;
 			compatibilityVersion = "Xcode 14.0";
-			developmentRegion = en;
+			developmentRegion = ko;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				en,
+				ko,
 				Base,
+				en,
 			);
 			mainGroup = B1A39D062B2238E30050A33E;
+			packageReferences = (
+				B1A594832B24706000565C8C /* XCRemoteSwiftPackageReference "SnapKit" */,
+				B1A594862B24708100565C8C /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				B1A594892B24709800565C8C /* XCRemoteSwiftPackageReference "RxSwift" */,
+				B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B1A39D102B2238E30050A33E /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B1A39D0E2B2238E30050A33E /* pico.admin */,
-				B1A39D242B2238E90050A33E /* pico.adminTests */,
-				B1A39D2E2B2238E90050A33E /* pico.adminUITests */,
+				B1A39D0E2B2238E30050A33E /* Pico.admin */,
+				B1A39D242B2238E90050A33E /* Pico.adminTests */,
+				B1A39D2E2B2238E90050A33E /* Pico.adminUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -305,9 +459,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1A39D1F2B2238E80050A33E /* LaunchScreen.storyboard in Resources */,
+				B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */,
 				B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */,
-				B1A39D1A2B2238E30050A33E /* Main.storyboard in Resources */,
+				B1A594E52B247E8700565C8C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,21 +486,49 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1A594AF2B24756D00565C8C /* User.swift in Sources */,
+				B1A594C32B24779A00565C8C /* MBTI.swift in Sources */,
+				B1A594C72B2477EE00565C8C /* CustomIndicator.swift in Sources */,
+				B1A594A42B24746400565C8C /* UIView+Extensions.swift in Sources */,
 				B1A39D542B22398E0050A33E /* AdminUserDetailViewModel.swift in Sources */,
 				B1A39D5C2B22398E0050A33E /* DetailUserImageTableViewCell.swift in Sources */,
 				B1A39D5E2B22398E0050A33E /* AdminReportViewController.swift in Sources */,
 				B1A39D172B2238E30050A33E /* ViewController.swift in Sources */,
+				B1A594B72B2475D700565C8C /* UILabel+Extensions.swift in Sources */,
+				B1A594B42B2475A700565C8C /* LoadingAnimationView.swift in Sources */,
 				B1A39D592B22398E0050A33E /* RecordHeaderCollectionViewCell.swift in Sources */,
 				B1A39D132B2238E30050A33E /* AppDelegate.swift in Sources */,
 				B1A39D552B22398E0050A33E /* AdminUserViewModel.swift in Sources */,
 				B1A39D562B22398E0050A33E /* AdminViewController.swift in Sources */,
+				B1A594D32B24796A00565C8C /* Block.swift in Sources */,
+				B1A594CD2B24784C00565C8C /* String+Extensions.swift in Sources */,
+				B1A594A82B24748A00565C8C /* UIFont+Extensions.swift in Sources */,
+				B1A594B52B2475A700565C8C /* Loading.swift in Sources */,
+				B1A594972B2472AA00565C8C /* ViewModelType.swift in Sources */,
 				B1A39D5A2B22398E0050A33E /* AdminUserTableViewCell.swift in Sources */,
+				B1A594AD2B24754500565C8C /* UIViewController+Extensions.swift in Sources */,
+				B1A594D12B24793200565C8C /* SubInfo.swift in Sources */,
 				B1A39D532B22398E0050A33E /* AdminReportViewModel.swift in Sources */,
+				B1A594BD2B24764600565C8C /* UITableView+Extensions.swift in Sources */,
 				B1A39D602B22398E0050A33E /* AdminUserDetailViewController.swift in Sources */,
+				B1A594C52B2477BD00565C8C /* Payment.swift in Sources */,
+				B1A594C12B2476D700565C8C /* CustomPopupViewController.swift in Sources */,
 				B1A39D152B2238E30050A33E /* SceneDelegate.swift in Sources */,
-				B1A39D5F2B22398E0050A33E /* AdminBaseViewController.swift in Sources */,
+				B1A594BC2B24764600565C8C /* UICollectionView+Extensions.swift in Sources */,
+				B1A594C92B24780800565C8C /* Double+Extensions.swift in Sources */,
+				B1A594D52B24797100565C8C /* Like.swift in Sources */,
 				B1A39D5B2B22398E0050A33E /* RecordHeaderTableViewCell.swift in Sources */,
+				B1A594CB2B24782E00565C8C /* Int+Extensions.swift in Sources */,
+				B1A5949D2B24739000565C8C /* FirestoreService.swift in Sources */,
+				B1A594BF2B24767800565C8C /* Array+Extensions.swift in Sources */,
+				B1A594AB2B2474DC00565C8C /* CommonTextField.swift in Sources */,
+				B1A594B92B2475FC00565C8C /* MBTILabelView.swift in Sources */,
 				B1A39D572B22398E0050A33E /* AdminUserViewController.swift in Sources */,
+				B1A594A02B2473E900565C8C /* Encodable+Extensions.swift in Sources */,
+				B1A594B12B24757A00565C8C /* Report.swift in Sources */,
+				B1A594CF2B24792700565C8C /* Location.swift in Sources */,
+				B1A594A72B24748A00565C8C /* UIColor+Extensions.swift in Sources */,
+				B1A594D72B2479BA00565C8C /* UIImage+Extensions.swift in Sources */,
 				B1A39D582B22398E0050A33E /* RecordEmptyTableViewCell.swift in Sources */,
 				B1A39D5D2B22398E0050A33E /* DetailUserInfoTableViewCell.swift in Sources */,
 			);
@@ -374,34 +556,15 @@
 /* Begin PBXTargetDependency section */
 		B1A39D272B2238E90050A33E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B1A39D0E2B2238E30050A33E /* pico.admin */;
+			target = B1A39D0E2B2238E30050A33E /* Pico.admin */;
 			targetProxy = B1A39D262B2238E90050A33E /* PBXContainerItemProxy */;
 		};
 		B1A39D312B2238E90050A33E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B1A39D0E2B2238E30050A33E /* pico.admin */;
+			target = B1A39D0E2B2238E30050A33E /* Pico.admin */;
 			targetProxy = B1A39D302B2238E90050A33E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		B1A39D182B2238E30050A33E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B1A39D192B2238E30050A33E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B1A39D1D2B2238E80050A33E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B1A39D1E2B2238E80050A33E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B1A39D372B2238E90050A33E /* Debug */ = {
@@ -409,6 +572,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -472,6 +636,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -532,20 +697,21 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = pico.admin/Info.plist;
+				INFOPLIST_FILE = Pico.admin/Config/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanle.pico.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ojeomsun.pico.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -561,20 +727,21 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = pico.admin/Info.plist;
+				INFOPLIST_FILE = Pico.admin/Config/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.hanle.pico.admin;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ojeomsun.pico.admin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -597,7 +764,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pico.admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/pico.admin";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pico.admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pico.admin";
 			};
 			name = Debug;
 		};
@@ -617,7 +784,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pico.admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/pico.admin";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pico.admin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pico.admin";
 			};
 			name = Release;
 		};
@@ -660,7 +827,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B1A39D0A2B2238E30050A33E /* Build configuration list for PBXProject "pico.admin" */ = {
+		B1A39D0A2B2238E30050A33E /* Build configuration list for PBXProject "Pico.admin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A39D372B2238E90050A33E /* Debug */,
@@ -669,7 +836,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1A39D392B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.admin" */ = {
+		B1A39D392B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.admin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A39D3A2B2238E90050A33E /* Debug */,
@@ -678,7 +845,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1A39D3C2B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.adminTests" */ = {
+		B1A39D3C2B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.adminTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A39D3D2B2238E90050A33E /* Debug */,
@@ -687,7 +854,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B1A39D3F2B2238E90050A33E /* Build configuration list for PBXNativeTarget "pico.adminUITests" */ = {
+		B1A39D3F2B2238E90050A33E /* Build configuration list for PBXNativeTarget "Pico.adminUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B1A39D402B2238E90050A33E /* Debug */,
@@ -697,6 +864,79 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B1A594832B24706000565C8C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.0;
+			};
+		};
+		B1A594862B24708100565C8C /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.10.0;
+			};
+		};
+		B1A594892B24709800565C8C /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.19.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B1A594842B24706000565C8C /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594832B24706000565C8C /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		B1A594872B24708100565C8C /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594862B24708100565C8C /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		B1A5948A2B24709800565C8C /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594892B24709800565C8C /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		B1A5948D2B2470E200565C8C /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594892B24709800565C8C /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		B1A594922B2471E400565C8C /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+		B1A594942B2471E400565C8C /* FirebaseStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseStorage;
+		};
+		B1A594A12B24742B00565C8C /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B1A39D072B2238E30050A33E /* Project object */;
 }

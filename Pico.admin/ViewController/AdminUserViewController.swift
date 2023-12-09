@@ -122,7 +122,6 @@ final class AdminUserViewController: UIViewController {
         searchButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { viewController, _ in
-                viewController.searchButton.tappedAnimation()
                 let text = viewController.textFieldView.textField.text
                 viewController.searchButtonPublisher.onNext(text ?? "")
                 viewController.scrollToTop()
