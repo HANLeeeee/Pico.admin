@@ -116,11 +116,6 @@ final class AdminUserViewController: UIViewController {
         viewWillAppearPublisher.onNext(())
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        configEmptyView()
-    }
-    
     private func configRefresh() {
         refreshControl.addTarget(self, action: #selector(refreshTable), for: .valueChanged)
         refreshControl.tintColor = .picoBlue
@@ -286,9 +281,5 @@ extension AdminUserViewController {
             make.width.equalTo(textFieldView.snp.height)
             make.height.equalTo(textFieldView.snp.height)
         }
-    }
-    
-    private func configEmptyView() {
-        
     }
 }
