@@ -179,9 +179,14 @@ final class AdminUserViewModel: ViewModelType {
             .flatMap { viewModel, textFieldText in
                 return viewModel.searchListTextField(viewModel.userList, textFieldText)
             }
-        
-        let combinedResults = Observable.zip(responseSearchButton, responseTextFieldSearch)
-            .map { searchList, textFieldList in
+
+        let combinedResults = Observable.combineLatest(responseSearchButton, responseTextFieldSearch)
+            .withUnretained(self)
+            .map { viewModel, list in
+                let (searchList, textFieldList) = list
+                if searchList.count == viewModel.userList.count {
+                    return viewModel.userList
+                }
                 let list = searchList + textFieldList
                 let setList = Set(list)
                 return Array(setList)

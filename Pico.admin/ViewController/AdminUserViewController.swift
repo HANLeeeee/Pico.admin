@@ -122,6 +122,22 @@ final class AdminUserViewController: UIViewController {
     }
     
     private func configButtons() {
+        textFieldView.removeAllButtonPublisher
+            .withUnretained(self)
+            .subscribe(onNext: { viewController, _ in
+                viewController.searchButtonPublisher.onNext("")
+                viewController.scrollToTop()
+            })
+            .disposed(by: disposeBag)
+        
+        textFieldView.textInputPublisher
+            .withUnretained(self)
+            .subscribe(onNext: { viewController, text in
+                viewController.searchButtonPublisher.onNext(text)
+                viewController.scrollToTop()
+            })
+            .disposed(by: disposeBag)
+        
         searchButton.rx.tap
             .withUnretained(self)
             .subscribe(onNext: { viewController, _ in

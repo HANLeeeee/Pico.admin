@@ -43,6 +43,7 @@ final class CommonTextField: UIView {
     /// 최대 글자 수 제한
     private var maxLength: Int
     let textInputPublisher = PublishSubject<String>()
+    let removeAllButtonPublisher = PublishSubject<Void>()
 
     init(frame: CGRect = .zero, maxLength: Int = 0) {
         self.maxLength = maxLength
@@ -70,6 +71,7 @@ final class CommonTextField: UIView {
     @objc private func tappedRemoveAllButton(_ sender: UIButton) {
         textField.text = ""
         removeAllButton.isHidden = true
+        removeAllButtonPublisher.onNext(())
     }
 }
 
@@ -83,19 +85,19 @@ extension CommonTextField: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard maxLength > 0 else {
-            if let text = textField.text {
-                textInputPublisher.onNext(text + string)
-            }
-            return true
-        }
+        guard maxLength > 0 else { return true}
         
         let currentText = textField.text ?? ""
         var newText = (currentText as NSString).replacingCharacters(in: range, with: string)
         newText = newText.replacingOccurrences(of: " ", with: "")
-        textInputPublisher.onNext(newText)
         
         return newText.count <= maxLength
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textInputPublisher.onNext(textField.text ?? "")
+        self.endEditing(true)
+        return true
     }
 }
 
