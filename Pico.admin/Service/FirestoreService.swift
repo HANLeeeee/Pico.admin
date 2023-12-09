@@ -191,19 +191,16 @@ final class FirestoreService {
                     return
                 }
                 guard let documents = querySnapshot?.documents else { return }
-                guard !documents.isEmpty else { return }
                 
+                var result: [T] = []
                 lastDocumentSnapshot = documents.last
-                
-                if let documents = querySnapshot?.documents {
-                    var result: [T] = []
-                    for document in documents {
-                        if let temp = try? document.data(as: dataType) {
-                            result.append(temp)
-                        }
+                for document in documents {
+                    if let temp = try? document.data(as: dataType) {
+                        result.append(temp)
                     }
-                    completion(.success((result, lastDocumentSnapshot)))
                 }
+                
+                completion(.success((result, lastDocumentSnapshot)))
             }
         }
     }

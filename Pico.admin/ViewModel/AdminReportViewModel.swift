@@ -70,6 +70,7 @@ final class AdminReportViewModel: ViewModelType {
         let resultToViewDidLoad: Observable<[AdminReport]>
         let resultSearchUserList: Observable<[AdminReport]>
         let resultPagingList: Observable<[AdminReport]>
+        let resultEmptyList: Observable<Bool>
         let resultReportedUser: Observable<User?>
     }
     
@@ -78,7 +79,12 @@ final class AdminReportViewModel: ViewModelType {
     private let itemsPerPage: Int = 10
     private var lastDocumentSnapshot: DocumentSnapshot?
     
-    private(set) var reportList: [AdminReport] = []
+    private(set) var reportList: [AdminReport] = [] {
+        didSet {
+            isEmptyReportList.onNext(reportList.isEmpty)
+        }
+    }
+    private(set) var isEmptyReportList = PublishSubject<Bool>()
     
     func transform(input: Input) -> Output {
         let responseViewDidLoad = input.viewDidLoad
@@ -92,8 +98,8 @@ final class AdminReportViewModel: ViewModelType {
             .map { viewModel, usersAndSnapshot in
                 let (reports, snapShot) = usersAndSnapshot
                 viewModel.reportList.removeAll()
-                viewModel.lastDocumentSnapshot = snapShot
                 viewModel.reportList = reports
+                viewModel.lastDocumentSnapshot = snapShot
                 Loading.hideLoading()
                 return viewModel.reportList
             }
@@ -139,6 +145,7 @@ final class AdminReportViewModel: ViewModelType {
             resultToViewDidLoad: responseViewDidLoad,
             resultSearchUserList: combinedResults,
             resultPagingList: responseTableViewPaging,
+            resultEmptyList: isEmptyReportList.asObservable(),
             resultReportedUser: responseReportedUser
         )
     }
@@ -180,14 +187,15 @@ final class AdminReportViewModel: ViewModelType {
                         return
                     }
                     
-                    lastDocumentSnapshot = documents.last
-                    
-                    for document in documents {
-                        if let data = try? document.data(as: AdminReport.self) {
-                            reportList.append(data)
+                    if lastDocumentSnapshot != documents.last {
+                        lastDocumentSnapshot = documents.last
+                        for document in documents {
+                            if let data = try? document.data(as: AdminReport.self) {
+                                reportList.append(data)
+                            }
                         }
+                        emitter.onNext(reportList)
                     }
-                    emitter.onNext(reportList)
                 }
             }
             return Disposables.create()

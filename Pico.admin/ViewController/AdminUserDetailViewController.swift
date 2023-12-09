@@ -93,7 +93,7 @@ final class AdminUserDetailViewController: UIViewController {
         tableView.register(cell: DetailUserInfoTableViewCell.self)
         tableView.register(cell: RecordHeaderTableViewCell.self)
         tableView.register(cell: AdminUserTableViewCell.self)
-        tableView.register(cell: RecordEmptyTableViewCell.self)
+        tableView.register(cell: EmptyTableViewCell.self)
         tableView.separatorStyle = .none
         tableView.tableFooterView = activityIndicator
     }
@@ -252,7 +252,7 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             
         // MARK: - empty
         case .empty:
-            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: RecordEmptyTableViewCell.self)
+            let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: EmptyTableViewCell.self)
             cell.selectionStyle = .none
             return cell
             
@@ -298,7 +298,7 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
         case .recordHeader:
             return 70
         case .empty:
-            return UITableView.automaticDimension
+            return 280
         case .record:
             return 80
         }

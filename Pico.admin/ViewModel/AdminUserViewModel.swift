@@ -99,13 +99,19 @@ final class AdminUserViewModel: ViewModelType {
         let resultTitleLabel: Observable<String>
         let resultSearchUserList: Observable<[User]>
         let resultPagingList: Observable<[User]>
+        let resultEmptyList: Observable<Bool>
         let needToReload: Observable<Void>
     }
     
     private let itemsPerPage: Int = 20
     private var lastDocumentSnapshot: DocumentSnapshot?
     
-    private(set) var userList: [User] = []
+    private(set) var userList: [User] = [] {
+        didSet {
+            isEmptyUserList.onNext(userList.isEmpty)
+        }
+    }
+    private(set) var isEmptyUserList = PublishSubject<Bool>()
     private let reloadPublisher = PublishSubject<Void>()
     
     func transform(input: Input) -> Output {
@@ -113,7 +119,7 @@ final class AdminUserViewModel: ViewModelType {
         
         let responseViewDidLoad = Observable.combineLatest(input.userListType, input.sortedType, merged)
             .withUnretained(self)
-            .flatMap { (viewModel, value) -> Observable<([User], DocumentSnapshot?)> in
+            .flatMap { viewModel, value in
                 let (userListType, sortedType, _) = value
                 return FirestoreService.shared.loadDocumentRx(collectionId: userListType.collectionId, dataType: User.self, orderBy: sortedType.orderBy, itemsPerPage: viewModel.itemsPerPage, lastDocumentSnapshot: nil)
             }
@@ -121,8 +127,8 @@ final class AdminUserViewModel: ViewModelType {
             .map { viewModel, usersAndSnapshot in
                 let (users, snapShot) = usersAndSnapshot
                 viewModel.userList.removeAll()
-                viewModel.lastDocumentSnapshot = snapShot
                 viewModel.userList = users
+                viewModel.lastDocumentSnapshot = snapShot
                 Loading.hideLoading()
                 return viewModel.userList
             }
@@ -186,6 +192,7 @@ final class AdminUserViewModel: ViewModelType {
             resultTitleLabel: responseTitleLabel,
             resultSearchUserList: combinedResults,
             resultPagingList: responseTableViewPaging,
+            resultEmptyList: isEmptyUserList.asObservable(),
             needToReload: reloadPublisher.asObservable()
         )
     }
@@ -227,14 +234,15 @@ final class AdminUserViewModel: ViewModelType {
                         return
                     }
                     
-                    lastDocumentSnapshot = documents.last
-                    
-                    for document in documents {
-                        if let data = try? document.data(as: User.self) {
-                            userList.append(data)
+                    if lastDocumentSnapshot != documents.last {
+                        lastDocumentSnapshot = documents.last
+                        for document in documents {
+                            if let data = try? document.data(as: User.self) {
+                                userList.append(data)
+                            }
                         }
+                        emitter.onNext(userList)
                     }
-                    emitter.onNext(userList)
                 }
             }
             return Disposables.create()

@@ -57,7 +57,13 @@ final class AdminViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
+        view.configBackgroundColor()
+        view.tappedDismissKeyboard()
+        configNavigationBgColor()
+        addViews()
+        makeConstraints()
+        configNavigationBarButton()
+        configTabBar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,16 +76,6 @@ final class AdminViewController: UIViewController {
         navigationItem.leftBarButtonItem = nil
         navigationItem.hidesBackButton = true
         configNavigationBackButton()
-    }
-    
-    private func configUI() {
-        view.configBackgroundColor()
-        view.tappedDismissKeyboard()
-        configNavigationBgColor()
-        addViews()
-        makeConstraints()
-        configNavigationBarButton()
-        configTabBar()
     }
     
     private func configNavigationBarButton() {

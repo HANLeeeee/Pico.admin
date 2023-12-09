@@ -19,7 +19,7 @@
 		B1A39D552B22398E0050A33E /* AdminUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D462B22398E0050A33E /* AdminUserViewModel.swift */; };
 		B1A39D562B22398E0050A33E /* AdminViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D472B22398E0050A33E /* AdminViewController.swift */; };
 		B1A39D572B22398E0050A33E /* AdminUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D482B22398E0050A33E /* AdminUserViewController.swift */; };
-		B1A39D582B22398E0050A33E /* RecordEmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4A2B22398E0050A33E /* RecordEmptyTableViewCell.swift */; };
+		B1A39D582B22398E0050A33E /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4A2B22398E0050A33E /* EmptyTableViewCell.swift */; };
 		B1A39D592B22398E0050A33E /* RecordHeaderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4B2B22398E0050A33E /* RecordHeaderCollectionViewCell.swift */; };
 		B1A39D5A2B22398E0050A33E /* AdminUserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4C2B22398E0050A33E /* AdminUserTableViewCell.swift */; };
 		B1A39D5B2B22398E0050A33E /* RecordHeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D4D2B22398E0050A33E /* RecordHeaderTableViewCell.swift */; };
@@ -65,6 +65,7 @@
 		B1A594D72B2479BA00565C8C /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594D62B2479BA00565C8C /* UIImage+Extensions.swift */; };
 		B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */; };
 		B1A594E52B247E8700565C8C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1A594E42B247E8700565C8C /* GoogleService-Info.plist */; };
+		B1A594E72B24BB3600565C8C /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A594E62B24BB3600565C8C /* EmptyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,7 +102,7 @@
 		B1A39D462B22398E0050A33E /* AdminUserViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminUserViewModel.swift; sourceTree = "<group>"; };
 		B1A39D472B22398E0050A33E /* AdminViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminViewController.swift; sourceTree = "<group>"; };
 		B1A39D482B22398E0050A33E /* AdminUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminUserViewController.swift; sourceTree = "<group>"; };
-		B1A39D4A2B22398E0050A33E /* RecordEmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordEmptyTableViewCell.swift; sourceTree = "<group>"; };
+		B1A39D4A2B22398E0050A33E /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
 		B1A39D4B2B22398E0050A33E /* RecordHeaderCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordHeaderCollectionViewCell.swift; sourceTree = "<group>"; };
 		B1A39D4C2B22398E0050A33E /* AdminUserTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminUserTableViewCell.swift; sourceTree = "<group>"; };
 		B1A39D4D2B22398E0050A33E /* RecordHeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordHeaderTableViewCell.swift; sourceTree = "<group>"; };
@@ -140,6 +141,7 @@
 		B1A594D62B2479BA00565C8C /* UIImage+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B1A594E42B247E8700565C8C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B1A594E62B24BB3600565C8C /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,8 +205,8 @@
 				B1A5949E2B2473B700565C8C /* Extension */,
 				B1A594A92B2474C300565C8C /* Utils */,
 				B1A594982B2472E900565C8C /* Model */,
-				B1A39D432B22398E0050A33E /* ViewModel */,
 				B1A594822B246FFF00565C8C /* ViewController */,
+				B1A39D432B22398E0050A33E /* ViewModel */,
 				B1A39D492B22398E0050A33E /* Cell */,
 			);
 			path = Pico.admin;
@@ -231,9 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				B1A594962B2472A900565C8C /* ViewModelType.swift */,
+				B1A39D462B22398E0050A33E /* AdminUserViewModel.swift */,
 				B1A39D442B22398E0050A33E /* AdminReportViewModel.swift */,
 				B1A39D452B22398E0050A33E /* AdminUserDetailViewModel.swift */,
-				B1A39D462B22398E0050A33E /* AdminUserViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -241,10 +243,10 @@
 		B1A39D492B22398E0050A33E /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				B1A39D4A2B22398E0050A33E /* RecordEmptyTableViewCell.swift */,
-				B1A39D4B2B22398E0050A33E /* RecordHeaderCollectionViewCell.swift */,
 				B1A39D4C2B22398E0050A33E /* AdminUserTableViewCell.swift */,
 				B1A39D4D2B22398E0050A33E /* RecordHeaderTableViewCell.swift */,
+				B1A39D4B2B22398E0050A33E /* RecordHeaderCollectionViewCell.swift */,
+				B1A39D4A2B22398E0050A33E /* EmptyTableViewCell.swift */,
 				B1A39D4E2B22398E0050A33E /* DetailUserImageTableViewCell.swift */,
 				B1A39D4F2B22398E0050A33E /* DetailUserInfoTableViewCell.swift */,
 			);
@@ -335,6 +337,7 @@
 				B1A594B82B2475FC00565C8C /* MBTILabelView.swift */,
 				B1A594C02B2476D700565C8C /* CustomPopupViewController.swift */,
 				B1A594C62B2477EE00565C8C /* CustomIndicator.swift */,
+				B1A594E62B24BB3600565C8C /* EmptyView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -490,6 +493,7 @@
 				B1A594C32B24779A00565C8C /* MBTI.swift in Sources */,
 				B1A594C72B2477EE00565C8C /* CustomIndicator.swift in Sources */,
 				B1A594A42B24746400565C8C /* UIView+Extensions.swift in Sources */,
+				B1A594E72B24BB3600565C8C /* EmptyView.swift in Sources */,
 				B1A39D542B22398E0050A33E /* AdminUserDetailViewModel.swift in Sources */,
 				B1A39D5C2B22398E0050A33E /* DetailUserImageTableViewCell.swift in Sources */,
 				B1A39D5E2B22398E0050A33E /* AdminReportViewController.swift in Sources */,
@@ -529,7 +533,7 @@
 				B1A594CF2B24792700565C8C /* Location.swift in Sources */,
 				B1A594A72B24748A00565C8C /* UIColor+Extensions.swift in Sources */,
 				B1A594D72B2479BA00565C8C /* UIImage+Extensions.swift in Sources */,
-				B1A39D582B22398E0050A33E /* RecordEmptyTableViewCell.swift in Sources */,
+				B1A39D582B22398E0050A33E /* EmptyTableViewCell.swift in Sources */,
 				B1A39D5D2B22398E0050A33E /* DetailUserInfoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

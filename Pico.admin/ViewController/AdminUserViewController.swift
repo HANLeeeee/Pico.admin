@@ -59,6 +59,7 @@ final class AdminUserViewController: UIViewController {
         return button
     }()
     
+    private let emptyView = EmptyView()
     private let tableView = UITableView()
     
     private let activityIndicator: UIActivityIndicatorView = {
@@ -81,6 +82,8 @@ final class AdminUserViewController: UIViewController {
     private let refreshablePublisher = PublishSubject<Void>()
     
     private let refreshControl = UIRefreshControl()
+    
+    private let padding: CGFloat = 10
     
     init(viewModel: AdminUserViewModel) {
         self.viewModel = viewModel
@@ -111,6 +114,11 @@ final class AdminUserViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.isNavigationBarHidden = true
         viewWillAppearPublisher.onNext(())
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        configEmptyView()
     }
     
     private func configRefresh() {
@@ -162,6 +170,27 @@ final class AdminUserViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
+        output.resultEmptyList
+            .withUnretained(self)
+            .subscribe(onNext: { viewController, isEmpty in
+                if isEmpty {
+                    viewController.view.addSubview([viewController.emptyView])
+                    viewController.emptyView.snp.makeConstraints { [weak self] make in
+                        guard let self else { return }
+                        make.top.equalTo(textFieldView.snp.bottom).offset(100)
+                        make.leading.trailing.bottom.equalToSuperview()
+                    }
+                } else {
+                    viewController.view.addSubview([viewController.tableView])
+                    viewController.tableView.snp.makeConstraints { [weak self] make in
+                        guard let self else { return }
+                        make.top.equalTo(textFieldView.snp.bottom).offset(padding)
+                        make.leading.trailing.bottom.equalToSuperview()
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
         output.needToReload
             .withUnretained(self)
             .subscribe(onNext: { viewController, _ in
@@ -171,8 +200,10 @@ final class AdminUserViewController: UIViewController {
     }
     
     private func scrollToTop() {
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        if !viewModel.userList.isEmpty {
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        }
     }
     
     @objc private func refreshTable(_ refresh: UIRefreshControl) {
@@ -193,10 +224,10 @@ extension AdminUserViewController {
     private func configTableViewDatasource() {
         var isOffsetPublisherCalled = false
 
-        tableView.rx.contentOffset
+        tableView.rx.didEndDragging
             .withUnretained(self)
-            .subscribe(onNext: { viewController, contentOffset in
-                let contentOffsetY = contentOffset.y
+            .subscribe { viewController, _ in
+                let contentOffsetY = viewController.tableView.contentOffset.y
                 let contentHeight = viewController.tableView.contentSize.height
                 let boundsHeight = viewController.tableView.frame.size.height
 
@@ -212,9 +243,9 @@ extension AdminUserViewController {
                 } else {
                     isOffsetPublisherCalled = false
                 }
-            })
+            }
             .disposed(by: disposeBag)
-
+        
         tableView.rx.itemSelected
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
@@ -231,12 +262,10 @@ extension AdminUserViewController {
 extension AdminUserViewController {
     
     private func addViews() {
-        view.addSubview([textFieldView, searchButton, sortedMenu, tableView])
+        view.addSubview([textFieldView, searchButton, sortedMenu])
     }
     
     private func makeConstraints() {
-        let padding: CGFloat = 10
-        
         textFieldView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(padding)
             make.leading.equalTo(padding)
@@ -257,10 +286,9 @@ extension AdminUserViewController {
             make.width.equalTo(textFieldView.snp.height)
             make.height.equalTo(textFieldView.snp.height)
         }
+    }
+    
+    private func configEmptyView() {
         
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(textFieldView.snp.bottom).offset(padding)
-            make.leading.trailing.bottom.equalToSuperview()
-        }
     }
 }
