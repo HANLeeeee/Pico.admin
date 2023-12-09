@@ -698,6 +698,7 @@
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pico.admin/Config/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pico 관리자";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
@@ -728,6 +729,7 @@
 				DEVELOPMENT_TEAM = C39BYRTABZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Pico.admin/Config/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Pico 관리자";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait";
