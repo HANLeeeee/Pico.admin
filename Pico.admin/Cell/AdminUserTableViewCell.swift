@@ -109,15 +109,23 @@ final class AdminUserTableViewCell: UITableViewCell {
         iconImageView.image = UIImage(systemName: recordType.iconSystemImageName)
         iconImageView.tintColor = recordType.iconColor
         mbtiLabel.isHidden = true
-        if payment.price != 0 {
+        switch payment.paymentType {
+        case .purchase:
             nameLabel.text = "+\(payment.purchaseChuCount.formattedSeparator())츄"
-            profileImageView.image = UIImage(named: "AppIcon")
+            profileImageView.image = UIImage(named: "Icon")
             contentLabel.text = "\(payment.price.formattedSeparator())\(recordType.content)"
-        } else {
+            
+        case .randombox, .worldCup, .mail, .changeNickname, .backCard:
             nameLabel.text = "\(payment.purchaseChuCount.formattedSeparator())츄"
-            profileImageView.image = UIImage(named: "AppIcon_gray")
+            profileImageView.image = UIImage(named: "Icon_gray")
             contentLabel.text = "\(payment.paymentType.koreaName)에서 사용"
+            
+        case .randomboxObtain:
+            nameLabel.text = "+\(payment.purchaseChuCount.formattedSeparator())츄"
+            profileImageView.image = UIImage(named: "Icon")
+            contentLabel.text = "\(payment.paymentType.koreaName)"
         }
+        
         createDateLabel.isHidden = false
         createDateLabel.text = payment.purchasedDate.timeAgoSinceDate()
     }
