@@ -30,44 +30,26 @@
   
 - Snapkit 라이브러리 사용하여 오토레이아웃을 구현하였습니다.
 - 잊을 수 있는 translatesAutoresizingMaskIntoConstraints 및 isActive 를 생략하면서 간결한 코드를 작성할 수 있었습니다.
-- remakeConstraints 나 updateConstraints 를 사용하여 쉽게 제약조건을 수정할 수 있었습니다.
+
 ```swift
-extension AdminUserViewController {
-    private func addViews() {
-        view.addSubview([textFieldView, searchButton, sortedMenu, tableView])
-    }
-    
-    private func makeConstraints() {
-        let padding: CGFloat = 10
-        
-        textFieldView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(padding)
-            make.leading.equalTo(padding)
-            make.height.equalTo(40)
-        }
-        
-        searchButton.snp.makeConstraints { make in
-            make.centerY.equalTo(textFieldView)
-            make.leading.equalTo(textFieldView.snp.trailing).offset(padding)
-            make.width.equalTo(60)
-            make.height.equalTo(35)
-        }
-        
-        sortedMenu.snp.makeConstraints { make in
-            make.centerY.equalTo(textFieldView)
-            make.leading.equalTo(searchButton.snp.trailing).offset(padding)
-            make.trailing.equalTo(view.safeAreaLayoutGuide).offset(-padding)
-            make.width.equalTo(textFieldView.snp.height)
-            make.height.equalTo(textFieldView.snp.height)
-        }
-        
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(textFieldView.snp.bottom).offset(padding)
-            make.leading.trailing.bottom.equalToSuperview()
-        }
-    }
+textFieldView.snp.makeConstraints { make in
+    make.top.equalTo(view.safeAreaLayoutGuide).offset(padding)
+    make.leading.equalTo(padding)
+    make.height.equalTo(40)
 }
 ```
+<br/>
+
+- remakeConstraints 나 updateConstraints 를 사용하여 쉽게 제약조건을 수정할 수 있었습니다.
+```swift
+sectionView.snp.remakeConstraints { make in
+    make.top.equalTo(moreButton.snp.bottom).offset(20)
+    make.leading.trailing.equalTo(0)
+    make.height.equalTo(10)
+    make.bottom.equalTo(-10)
+}
+```
+
 <br/>
 
 </details>
@@ -202,9 +184,11 @@ private func loadNextPage(collectionId: Collections, orderBy: (String, Bool)) ->
 <summary><h3>컬럭션뷰셀에 따른 테이블뷰 섹션 리로드 구현</h3></summary>
 
 - 테이블뷰셀에 컬렉션뷰를 구현하여 카테고리를 구현했습니다.
-- 처음에는 컬렉션뷰가 클릭되었을 때 onNext를 보내고 테이블뷰가 dequeue될 때 subscribe하는 형식으로 진행했습니다.
-- 하지만 테이블뷰셀이 dequeue를 할 때마다 매번 subscribe가 호출되어 새로운 스트림이 매번 중첩되는 것이 문제였습니다.
-- 따라서 이를 해결하기 위해서 PublishSubject를 ViewController에서 생성 후 컬렉션뷰에 주입하고 이벤트는 ViewController에서 처리할 수 있게 했습니다.
+- 처음 컬렉션뷰셀이 클릭되었을 때 해당 이벤트를 통해 `onNext` 를 이용해 스트림을 전송하였습니다.
+- 하지만 테이블뷰셀안에 있는 컬렉션뷰셀은 테이블뷰의 셀이 `dequeue` 될 때마다 매번 `subscribe`가 호출되어 새로운 스트림이 매번 중첩되는 것이 문제였습니다.
+- 이를 해결하기 위해서 `PublishSubject`를 ViewController에서 생성 후 컬렉션뷰에 주입하고 이벤트는 ViewController에서 처리할 수 있게 했습니다.
+- 이러한 구조를 통해 컬렉션뷰의 클릭 이벤트를 중첩없이 처리하고, 테이블뷰의 `dequeue`  시 `subscribe` 를 방지하여 코드의 일관성을 유지하였습니다.
+  
 ```swift
 case .recordHeader:
     let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: RecordHeaderTableViewCell.self)
@@ -251,3 +235,4 @@ func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPat
 - FiresStore, Firebase Storage
 - DarkMode
 
+<br/><br/>
