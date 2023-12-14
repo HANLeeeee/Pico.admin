@@ -30,6 +30,8 @@ final class AdminUserDetailViewController: UIViewController {
         return button
     }()
     
+    private let actionSheetController = UIAlertController()
+    
     private let unsubscribeButton: UIButton = {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)
         let backImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
@@ -82,6 +84,7 @@ final class AdminUserDetailViewController: UIViewController {
         makeConstraints()
         configTableView()
         configButtons()
+        configActionSheet()
         bind()
         viewDidLoadPublish.onNext(())
     }
@@ -101,6 +104,19 @@ final class AdminUserDetailViewController: UIViewController {
     private func configButtons() {
         backButton.addTarget(self, action: #selector(tappedBackButton), for: .touchUpInside)
         unsubscribeButton.addTarget(self, action: #selector(tappedUnsubscribeButton), for: .touchUpInside)
+    }
+    
+    private func configActionSheet() {
+        let actionStop = UIAlertAction(title: "정지", style: .default) { _ in
+        }
+        actionSheetController.addAction(actionStop)
+        
+        let actionUnsubscribe = UIAlertAction(title: "탈퇴", style: .default) { _ in
+        }
+        actionSheetController.addAction(actionUnsubscribe)
+        
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        actionSheetController.addAction(actionCancel)
     }
     
     private func bind() {
@@ -179,15 +195,16 @@ final class AdminUserDetailViewController: UIViewController {
     }
     
     @objc private func tappedUnsubscribeButton(_ sender: UIButton) {
-        showCustomAlert(
-            alertType: .canCancel,
-            titleText: "탈퇴 알림",
-            messageText: "탈퇴시키시겠습니까 ?",
-            confirmButtonText: "탈퇴",
-            comfrimAction: { [weak self] in
-                guard let self else { return }
-                unsubscribePublish.onNext(())
-            })
+        self.present(actionSheetController, animated: true)
+//        showCustomAlert(
+//            alertType: .canCancel,
+//            titleText: "탈퇴 알림",
+//            messageText: "탈퇴시키시겠습니까 ?",
+//            confirmButtonText: "탈퇴",
+//            comfrimAction: { [weak self] in
+//                guard let self else { return }
+//                unsubscribePublish.onNext(())
+//            })
     }
 }
 
