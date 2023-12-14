@@ -246,7 +246,7 @@ final class AdminUserDetailViewModel: ViewModelType {
                     }
                     
                     if let document {
-                        if let datas = try? document.data(as: Like.self).recivedlikes?.filter({ $0.likeType == .like }) {
+                        if let datas = try? document.data(as: Like.self).recivedlikes?.filter({ $0.likeType == .like || $0.likeType == .matching }) {
                             let sorted = datas.sorted {
                                 return $0.createdDate > $1.createdDate
                             }
