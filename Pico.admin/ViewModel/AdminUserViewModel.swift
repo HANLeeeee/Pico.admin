@@ -98,6 +98,7 @@ final class AdminUserViewModel: ViewModelType {
         let tableViewOffset: Observable<Void>
         let refreshable: Observable<Void>
         let isUnsubscribe: Observable<User>
+        let isReusing: Observable<(User, UserListType)>
     }
     
     struct Output {
@@ -107,12 +108,12 @@ final class AdminUserViewModel: ViewModelType {
         let resultEmptyList: Observable<Bool>
         let needToReload: Observable<Void>
         let resultUnsubscribe: Observable<Void>
+        let resultReusing: Observable<Void>
     }
     
     private let itemsPerPage: Int = 20
     private var lastDocumentSnapshot: DocumentSnapshot?
     
-    private var selectedUser: User?
     private(set) var userList: [User] = [] {
         didSet {
             isEmptyList.onNext(userList.isEmpty)
@@ -182,7 +183,7 @@ final class AdminUserViewModel: ViewModelType {
             .flatMap { viewModel, textFieldText in
                 return viewModel.searchListTextField(viewModel.userList, textFieldText)
             }
-
+        
         let combinedResults = Observable.combineLatest(responseSearchButton, responseTextFieldSearch)
             .withUnretained(self)
             .map { viewModel, list in
@@ -198,14 +199,21 @@ final class AdminUserViewModel: ViewModelType {
         let responseUnsubscribe = input.isUnsubscribe
             .withUnretained(self)
             .flatMap { viewModel, user in
-                viewModel.selectedUser = user
                 let unsubscribe = Unsubscribe(createdDate: Date().timeIntervalSince1970, phoneNumber: user.phoneNumber, user: user)
                 return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: user.id, data: unsubscribe)
+                    .flatMap { _ in
+                        return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: user.id)
+                    }
             }
+        
+        let responseReusing = input.isReusing
             .withUnretained(self)
-            .flatMap { viewModel, _ in
-                // TODO: 강제언래핑 수정
-                return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: viewModel.selectedUser!.id)
+            .flatMap { viewModel, data in
+                let (user, userListType) = data
+                return FirestoreService.shared.removeDocumentRx(collectionId: userListType.collectionId, documentId: user.id)
+                    .flatMap { _ in
+                        return FirestoreService.shared.saveDocumentRx(collectionId: .users, documentId: user.id, data: user)
+                    }
             }
         
         return Output(
@@ -214,7 +222,8 @@ final class AdminUserViewModel: ViewModelType {
             resultPagingList: responseTableViewPaging,
             resultEmptyList: isEmptyList.asObservable(),
             needToReload: reloadPublisher.asObservable(),
-            resultUnsubscribe: responseUnsubscribe
+            resultUnsubscribe: responseUnsubscribe,
+            resultReusing: responseReusing
         )
     }
     
@@ -269,25 +278,4 @@ final class AdminUserViewModel: ViewModelType {
             return Disposables.create()
         }
     }
-//    
-//    func findUser(_ partnerId: String, _ myId: String, completion: @escaping (Bool) -> Void) {
-//        var users = [User]()
-//        let dbRef = Firestore.firestore().collection("stop")
-//        
-//        DispatchQueue.global().async {
-//            dbRef.getDocuments { [self] (querySnapshot, error) in
-//                if let error = error {
-//                    print("Error getting documents: \(error)")
-//                    completion(false)
-//                } else {
-//                    for document in querySnapshot!.documents {
-//                        if let data = try? document.data(as: Stop.self), let userData = data.users {
-//                            users += userData
-//                        }
-//                    }
-//                    completion(true)
-//                }
-//            }
-//        }
-//    }
 }

@@ -49,7 +49,7 @@ final class AdminUserViewController: UIViewController {
             scrollToTop()
         })
     }
-
+    
     private let textFieldView: CommonTextField = CommonTextField()
     
     private let searchButton: UIButton = {
@@ -84,6 +84,7 @@ final class AdminUserViewController: UIViewController {
     private let tableViewOffsetPublisher = PublishSubject<Void>()
     private let refreshablePublisher = PublishSubject<Void>()
     private let unsubscribePublish = PublishSubject<User>()
+    private let reusingPublish = PublishSubject<(User, UserListType)>()
     
     private let refreshControl = UIRefreshControl()
     private let padding: CGFloat = 10
@@ -177,10 +178,11 @@ final class AdminUserViewController: UIViewController {
             searchButton: searchButtonPublisher.asObservable(),
             tableViewOffset: tableViewOffsetPublisher.asObservable(),
             refreshable: refreshablePublisher.asObservable(),
-            isUnsubscribe: unsubscribePublish.asObservable()
+            isUnsubscribe: unsubscribePublish.asObservable(),
+            isReusing: reusingPublish.asObservable()
         )
         let output = viewModel.transform(input: input)
-
+        
         let mergedData = Observable.merge(output.resultToViewDidLoad, output.resultSearchUserList, output.resultPagingList)
         
         mergedData
@@ -223,8 +225,17 @@ final class AdminUserViewController: UIViewController {
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { viewController, _ in
                 viewController.showCustomAlert(alertType: .onlyConfirm, titleText: "알림", messageText: "탈퇴가 완료되었습니다.", confirmButtonText: "확인", comfrimAction: {
-                    // TODO: 여기 테이블뷰 새로고침
-//                    viewController.tableView.reloadData()
+                    viewController.viewWillAppearPublisher.onNext(())
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        output.resultReusing
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { viewController, _ in
+                viewController.showCustomAlert(alertType: .onlyConfirm, titleText: "알림", messageText: "복구가 완료되었습니다.", confirmButtonText: "확인", comfrimAction: {
+                    viewController.viewWillAppearPublisher.onNext(())
                 })
             })
             .disposed(by: disposeBag)
@@ -254,14 +265,14 @@ extension AdminUserViewController {
     
     private func configTableViewDatasource() {
         var isOffsetPublisherCalled = false
-
+        
         tableView.rx.didEndDragging
             .withUnretained(self)
             .subscribe { viewController, _ in
                 let contentOffsetY = viewController.tableView.contentOffset.y
                 let contentHeight = viewController.tableView.contentSize.height
                 let boundsHeight = viewController.tableView.frame.size.height
-
+                
                 if contentOffsetY > contentHeight - boundsHeight && !viewController.activityIndicator.isAnimating {
                     if !isOffsetPublisherCalled {
                         viewController.activityIndicator.startAnimating()
@@ -285,7 +296,7 @@ extension AdminUserViewController {
                 let detailViewController = AdminUserDetailViewController(viewModel: AdminUserDetailViewModel(selectedUser: user))
                 viewController.navigationController?.pushViewController(detailViewController, animated: true)
             })
-            .disposed(by: disposeBag)            
+            .disposed(by: disposeBag)
         
         tableView.rx.itemDeleted
             .withUnretained(self)
@@ -296,14 +307,11 @@ extension AdminUserViewController {
                 
                 switch userListType {
                 case .using:
-                    print("using")
+                    print("\(userListType)")
                     unsubscribeUser(to: user)
-                case .stop:
-                    print("stop")
-                    reusingUser()
-                case .unsubscribe:
-                    print("unsubscribe")
-                    reusingUser()
+                case .stop, .unsubscribe:
+                    print("\(userListType)")
+                    reusingUser(to: user, in: userListType)
                 }
             })
             .disposed(by: disposeBag)
@@ -321,7 +329,7 @@ extension AdminUserViewController {
             })
     }
     
-    private func reusingUser() {
+    private func reusingUser(to user: User, in userListType: UserListType) {
         showCustomAlert(
             alertType: .canCancel,
             titleText: "복구 알림",
@@ -329,7 +337,7 @@ extension AdminUserViewController {
             confirmButtonText: "복구",
             comfrimAction: { [weak self] in
                 guard let self else { return }
-//                unsubscribePublish.onNext(())
+                reusingPublish.onNext((user, userListType))
             })
     }
 }
