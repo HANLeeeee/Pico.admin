@@ -10,14 +10,17 @@ import RxSwift
 import RxCocoa
 import FirebaseFirestore
 
-enum UserListType: CaseIterable {
+enum UserListType {
     case using
+    case stop
     case unsubscribe
     
     var name: String {
         switch self {
         case .using:
             return "사용중인 회원"
+        case .stop:
+            return "정지된 회원"
         case .unsubscribe:
             return "탈퇴된 회원"
         }
@@ -27,6 +30,8 @@ enum UserListType: CaseIterable {
         switch self {
         case .using:
             return .users
+        case .stop:
+            return .stop
         case .unsubscribe:
             return .unsubscribe
         }
@@ -106,12 +111,23 @@ final class AdminUserViewModel: ViewModelType {
     private let itemsPerPage: Int = 20
     private var lastDocumentSnapshot: DocumentSnapshot?
     
-    private(set) var userList: [User] = [] {
+    private(set) var usingUserList: [User] = [] {
         didSet {
-            isEmptyUserList.onNext(userList.isEmpty)
+            isEmptyList.onNext(usingUserList.isEmpty)
         }
     }
-    private(set) var isEmptyUserList = PublishSubject<Bool>()
+    private(set) var stopUserList: [Stop] = [] {
+        didSet {
+            isEmptyList.onNext(stopUserList.isEmpty)
+        }
+    }
+    private(set) var unsubscribeUsrList: [Unsubscribe] = [] {
+        didSet {
+            isEmptyList.onNext(unsubscribeUsrList.isEmpty)
+        }
+    }
+    
+    private(set) var isEmptyList = PublishSubject<Bool>()
     private let reloadPublisher = PublishSubject<Void>()
     
     func transform(input: Input) -> Output {
@@ -124,13 +140,13 @@ final class AdminUserViewModel: ViewModelType {
                 return FirestoreService.shared.loadDocumentRx(collectionId: userListType.collectionId, dataType: User.self, orderBy: sortedType.orderBy, itemsPerPage: viewModel.itemsPerPage, lastDocumentSnapshot: nil)
             }
             .withUnretained(self)
-            .map { viewModel, usersAndSnapshot in
-                let (users, snapShot) = usersAndSnapshot
-                viewModel.userList.removeAll()
-                viewModel.userList = users
+            .map { viewModel, data in
+                let (users, snapShot) = data
+                viewModel.usingUserList.removeAll()
+                viewModel.usingUserList = users
                 viewModel.lastDocumentSnapshot = snapShot
                 Loading.hideLoading()
-                return viewModel.userList
+                return viewModel.usingUserList
             }
         
         _ = input.viewWillAppear
@@ -160,15 +176,15 @@ final class AdminUserViewModel: ViewModelType {
                     .switchLatest()
             }
             .map { users in
-                self.userList = users
-                return self.userList
+                self.usingUserList = users
+                return self.usingUserList
             }
         
         let responseSearchButton = input.searchButton
             .withUnretained(self)
             .flatMap { viewModel, textFieldText in
                 if textFieldText.isEmpty {
-                    return Observable.just(viewModel.userList)
+                    return Observable.just(viewModel.usingUserList)
                 } else {
                     return FirestoreService.shared.searchDocumentWithEqualFieldRx(collectionId: .users, field: "nickName", compareWith: textFieldText, dataType: User.self)
                 }
@@ -177,15 +193,15 @@ final class AdminUserViewModel: ViewModelType {
         let responseTextFieldSearch = input.searchButton
             .withUnretained(self)
             .flatMap { viewModel, textFieldText in
-                return viewModel.searchListTextField(viewModel.userList, textFieldText)
+                return viewModel.searchListTextField(viewModel.usingUserList, textFieldText)
             }
 
         let combinedResults = Observable.combineLatest(responseSearchButton, responseTextFieldSearch)
             .withUnretained(self)
             .map { viewModel, list in
                 let (searchList, textFieldList) = list
-                if searchList.count == viewModel.userList.count {
-                    return viewModel.userList
+                if searchList.count == viewModel.usingUserList.count {
+                    return viewModel.usingUserList
                 }
                 let list = searchList + textFieldList
                 let setList = Set(list)
@@ -197,7 +213,7 @@ final class AdminUserViewModel: ViewModelType {
             resultTitleLabel: responseTitleLabel,
             resultSearchUserList: combinedResults,
             resultPagingList: responseTableViewPaging,
-            resultEmptyList: isEmptyUserList.asObservable(),
+            resultEmptyList: isEmptyList.asObservable(),
             needToReload: reloadPublisher.asObservable()
         )
     }
@@ -243,10 +259,10 @@ final class AdminUserViewModel: ViewModelType {
                         lastDocumentSnapshot = documents.last
                         for document in documents {
                             if let data = try? document.data(as: User.self) {
-                                userList.append(data)
+                                usingUserList.append(data)
                             }
                         }
-                        emitter.onNext(userList)
+                        emitter.onNext(usingUserList)
                     }
                 }
             }

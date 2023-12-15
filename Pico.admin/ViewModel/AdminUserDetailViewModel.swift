@@ -30,7 +30,6 @@ final class AdminUserDetailViewModel: ViewModelType {
     
     private(set) var reportList: [Report.ReportInfo] = [] {
         didSet {
-            isEmpty = reportList.isEmpty
             recordReloadPublisher.onNext(())
         }
     }

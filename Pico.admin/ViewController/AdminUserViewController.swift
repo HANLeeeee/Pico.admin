@@ -211,7 +211,7 @@ final class AdminUserViewController: UIViewController {
     }
     
     private func scrollToTop() {
-        if !viewModel.userList.isEmpty {
+        if !viewModel.usingUserList.isEmpty {
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
@@ -261,7 +261,7 @@ extension AdminUserViewController {
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { viewController, indexPath in
-                guard let user = viewController.viewModel.userList[safe: indexPath.row] else { return }
+                guard let user = viewController.viewModel.usingUserList[safe: indexPath.row] else { return }
                 let detailViewController = AdminUserDetailViewController(viewModel: AdminUserDetailViewModel(selectedUser: user))
                 viewController.navigationController?.pushViewController(detailViewController, animated: true)
             })
