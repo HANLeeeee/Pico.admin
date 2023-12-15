@@ -21,25 +21,31 @@ final class AdminUserViewController: UIViewController {
         return button
     }()
     
-    lazy var menu = UIMenu(title: "구분", children: [
-        usingMenu, unsubscribedMenu, sortTypeMenu
+    private lazy var menu = UIMenu(title: "구분", children: [
+        usingMenu, stopMenu, unsubscribedMenu, sortTypeMenu
     ])
     
-    lazy var usingMenu = UIAction(title: "사용중인 회원", image: UIImage(), handler: { [weak self] _ in
+    private lazy var usingMenu = UIAction(title: "사용중인 회원", image: UIImage(), handler: { [weak self] _ in
         guard let self = self else { return }
         userListTypeBehavior.onNext(.using)
         scrollToTop()
     })
     
-    lazy var unsubscribedMenu = UIAction(title: "탈퇴된 회원", image: UIImage(), handler: { [weak self] _ in
+    private lazy var stopMenu = UIAction(title: "정지된 회원", image: UIImage(), handler: { [weak self] _ in
+        guard let self = self else { return }
+        userListTypeBehavior.onNext(.stop)
+        scrollToTop()
+    })
+    
+    private lazy var unsubscribedMenu = UIAction(title: "탈퇴된 회원", image: UIImage(), handler: { [weak self] _ in
         guard let self = self else { return }
         userListTypeBehavior.onNext(.unsubscribe)
         scrollToTop()
     })
     
-    lazy var sortTypeMenu = UIMenu(title: "정렬 구분", options: .displayInline, children: sortMenus)
+    private lazy var sortTypeMenu = UIMenu(title: "정렬 구분", options: .displayInline, children: sortMenus)
     
-    lazy var sortMenus = UserSortType.allCases.map { sortType in
+    private lazy var sortMenus = UserSortType.allCases.map { sortType in
         return UIAction(title: sortType.name, image: UIImage(), handler: { [weak self] _ in
             guard let self = self else { return }
             sortedTypeBehavior.onNext(sortType)
@@ -211,7 +217,7 @@ final class AdminUserViewController: UIViewController {
     }
     
     private func scrollToTop() {
-        if !viewModel.usingUserList.isEmpty {
+        if !viewModel.userList.isEmpty {
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
@@ -261,7 +267,7 @@ extension AdminUserViewController {
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { viewController, indexPath in
-                guard let user = viewController.viewModel.usingUserList[safe: indexPath.row] else { return }
+                guard let user = viewController.viewModel.userList[safe: indexPath.row] else { return }
                 let detailViewController = AdminUserDetailViewController(viewModel: AdminUserDetailViewModel(selectedUser: user))
                 viewController.navigationController?.pushViewController(detailViewController, animated: true)
             })

@@ -111,19 +111,9 @@ final class AdminUserViewModel: ViewModelType {
     private let itemsPerPage: Int = 20
     private var lastDocumentSnapshot: DocumentSnapshot?
     
-    private(set) var usingUserList: [User] = [] {
+    private(set) var userList: [User] = [] {
         didSet {
-            isEmptyList.onNext(usingUserList.isEmpty)
-        }
-    }
-    private(set) var stopUserList: [Stop] = [] {
-        didSet {
-            isEmptyList.onNext(stopUserList.isEmpty)
-        }
-    }
-    private(set) var unsubscribeUsrList: [Unsubscribe] = [] {
-        didSet {
-            isEmptyList.onNext(unsubscribeUsrList.isEmpty)
+            isEmptyList.onNext(userList.isEmpty)
         }
     }
     
@@ -142,11 +132,11 @@ final class AdminUserViewModel: ViewModelType {
             .withUnretained(self)
             .map { viewModel, data in
                 let (users, snapShot) = data
-                viewModel.usingUserList.removeAll()
-                viewModel.usingUserList = users
+                viewModel.userList.removeAll()
+                viewModel.userList = users
                 viewModel.lastDocumentSnapshot = snapShot
                 Loading.hideLoading()
-                return viewModel.usingUserList
+                return viewModel.userList
             }
         
         _ = input.viewWillAppear
@@ -176,15 +166,15 @@ final class AdminUserViewModel: ViewModelType {
                     .switchLatest()
             }
             .map { users in
-                self.usingUserList = users
-                return self.usingUserList
+                self.userList = users
+                return self.userList
             }
         
         let responseSearchButton = input.searchButton
             .withUnretained(self)
             .flatMap { viewModel, textFieldText in
                 if textFieldText.isEmpty {
-                    return Observable.just(viewModel.usingUserList)
+                    return Observable.just(viewModel.userList)
                 } else {
                     return FirestoreService.shared.searchDocumentWithEqualFieldRx(collectionId: .users, field: "nickName", compareWith: textFieldText, dataType: User.self)
                 }
@@ -193,15 +183,15 @@ final class AdminUserViewModel: ViewModelType {
         let responseTextFieldSearch = input.searchButton
             .withUnretained(self)
             .flatMap { viewModel, textFieldText in
-                return viewModel.searchListTextField(viewModel.usingUserList, textFieldText)
+                return viewModel.searchListTextField(viewModel.userList, textFieldText)
             }
 
         let combinedResults = Observable.combineLatest(responseSearchButton, responseTextFieldSearch)
             .withUnretained(self)
             .map { viewModel, list in
                 let (searchList, textFieldList) = list
-                if searchList.count == viewModel.usingUserList.count {
-                    return viewModel.usingUserList
+                if searchList.count == viewModel.userList.count {
+                    return viewModel.userList
                 }
                 let list = searchList + textFieldList
                 let setList = Set(list)
@@ -259,14 +249,35 @@ final class AdminUserViewModel: ViewModelType {
                         lastDocumentSnapshot = documents.last
                         for document in documents {
                             if let data = try? document.data(as: User.self) {
-                                usingUserList.append(data)
+                                userList.append(data)
                             }
                         }
-                        emitter.onNext(usingUserList)
+                        emitter.onNext(userList)
                     }
                 }
             }
             return Disposables.create()
         }
     }
+//    
+//    func findUser(_ partnerId: String, _ myId: String, completion: @escaping (Bool) -> Void) {
+//        var users = [User]()
+//        let dbRef = Firestore.firestore().collection("stop")
+//        
+//        DispatchQueue.global().async {
+//            dbRef.getDocuments { [self] (querySnapshot, error) in
+//                if let error = error {
+//                    print("Error getting documents: \(error)")
+//                    completion(false)
+//                } else {
+//                    for document in querySnapshot!.documents {
+//                        if let data = try? document.data(as: Stop.self), let userData = data.users {
+//                            users += userData
+//                        }
+//                    }
+//                    completion(true)
+//                }
+//            }
+//        }
+//    }
 }

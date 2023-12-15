@@ -201,9 +201,20 @@ final class FirestoreService {
                 var result: [T] = []
                 lastDocumentSnapshot = documents.last
                 for document in documents {
-                    if let temp = try? document.data(as: dataType) {
-                        result.append(temp)
+                    let temp: T
+                    switch collectionId {
+                    case .users, .likes, .notifications, .mail, .payment, .tokens, .report, .block, .adminReport, .session:
+                        guard let data = try? document.data(as: dataType) else { return }
+                        temp = data
+                    case .unsubscribe:
+                        guard let data = try? document.data(as: Unsubscribe.self) else { return }
+                        temp = data.user as! T
+                    case .stop:
+                        guard let data = try? document.data(as: Stop.self) else { return }
+                        temp = data.user as! T
                     }
+                    
+                    result.append(temp)
                 }
                 
                 completion(.success((result, lastDocumentSnapshot)))
