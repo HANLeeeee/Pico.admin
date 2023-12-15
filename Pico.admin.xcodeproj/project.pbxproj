@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B18BD04B2B2B73EA00729A10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B18BD04A2B2B73EA00729A10 /* GoogleService-Info.plist */; };
+		B18BD04D2B2B981400729A10 /* Unsubscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18BD04C2B2B981400729A10 /* Unsubscribe.swift */; };
+		B18BD04F2B2B982100729A10 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18BD04E2B2B982100729A10 /* Stop.swift */; };
 		B1A39D132B2238E30050A33E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D122B2238E30050A33E /* AppDelegate.swift */; };
 		B1A39D152B2238E30050A33E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D142B2238E30050A33E /* SceneDelegate.swift */; };
 		B1A39D172B2238E30050A33E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D162B2238E30050A33E /* ViewController.swift */; };
@@ -85,6 +88,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B18BD04A2B2B73EA00729A10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B18BD04C2B2B981400729A10 /* Unsubscribe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsubscribe.swift; sourceTree = "<group>"; };
+		B18BD04E2B2B982100729A10 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
 		B1A39D0F2B2238E30050A33E /* Pico.admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pico.admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D122B2238E30050A33E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1A39D142B2238E30050A33E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -260,6 +266,7 @@
 				B1A39D1B2B2238E80050A33E /* Assets.xcassets */,
 				B1A39D202B2238E80050A33E /* Info.plist */,
 				B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */,
+				B18BD04A2B2B73EA00729A10 /* GoogleService-Info.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -293,6 +300,8 @@
 				B1A594D22B24796A00565C8C /* Block.swift */,
 				B1A594C22B24779A00565C8C /* MBTI.swift */,
 				B1A594C42B2477BD00565C8C /* Payment.swift */,
+				B18BD04C2B2B981400729A10 /* Unsubscribe.swift */,
+				B18BD04E2B2B982100729A10 /* Stop.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -461,6 +470,7 @@
 			files = (
 				B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */,
 				B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */,
+				B18BD04B2B2B73EA00729A10 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -496,6 +506,7 @@
 				B1A39D172B2238E30050A33E /* ViewController.swift in Sources */,
 				B1A594B72B2475D700565C8C /* UILabel+Extensions.swift in Sources */,
 				B1A594B42B2475A700565C8C /* LoadingAnimationView.swift in Sources */,
+				B18BD04F2B2B982100729A10 /* Stop.swift in Sources */,
 				B1A39D592B22398E0050A33E /* RecordHeaderCollectionViewCell.swift in Sources */,
 				B1A39D132B2238E30050A33E /* AppDelegate.swift in Sources */,
 				B1A39D552B22398E0050A33E /* AdminUserViewModel.swift in Sources */,
@@ -530,6 +541,7 @@
 				B1A594A72B24748A00565C8C /* UIColor+Extensions.swift in Sources */,
 				B1A594D72B2479BA00565C8C /* UIImage+Extensions.swift in Sources */,
 				B1A39D582B22398E0050A33E /* EmptyTableViewCell.swift in Sources */,
+				B18BD04D2B2B981400729A10 /* Unsubscribe.swift in Sources */,
 				B1A39D5D2B22398E0050A33E /* DetailUserInfoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

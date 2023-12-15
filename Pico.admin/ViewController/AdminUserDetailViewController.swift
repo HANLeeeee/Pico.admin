@@ -30,9 +30,7 @@ final class AdminUserDetailViewController: UIViewController {
         return button
     }()
     
-    private let actionSheetController = UIAlertController()
-    
-    private let unsubscribeButton: UIButton = {
+    private let actionSheetButton: UIButton = {
         let imageConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .semibold)
         let backImage = UIImage(systemName: "ellipsis", withConfiguration: imageConfig)
         let button = UIButton(type: .system)
@@ -40,6 +38,9 @@ final class AdminUserDetailViewController: UIViewController {
         button.tintColor = .picoBlue
         return button
     }()
+    
+    private let actionSheetController = UIAlertController()
+    private let stopSheetController = UIAlertController()
     
     private let tableView: UITableView = UITableView()
     
@@ -58,6 +59,7 @@ final class AdminUserDetailViewController: UIViewController {
     private let selectedRecordTypePublish = PublishSubject<RecordType>()
     private let refreshablePublish = PublishSubject<RecordType>()
     private let unsubscribePublish = PublishSubject<Void>()
+    private let stopPublish = PublishSubject<DuringType>()
     private let cellRecordTypePublish = PublishSubject<RecordType>()
     
     private var currentRecordType: RecordType = .report {
@@ -85,6 +87,7 @@ final class AdminUserDetailViewController: UIViewController {
         configTableView()
         configButtons()
         configActionSheet()
+        configStopSheet()
         bind()
         viewDidLoadPublish.onNext(())
     }
@@ -103,15 +106,27 @@ final class AdminUserDetailViewController: UIViewController {
     
     private func configButtons() {
         backButton.addTarget(self, action: #selector(tappedBackButton), for: .touchUpInside)
-        unsubscribeButton.addTarget(self, action: #selector(tappedUnsubscribeButton), for: .touchUpInside)
+        actionSheetButton.addTarget(self, action: #selector(tappedActionSheetButton), for: .touchUpInside)
+    }
+    
+    @objc private func tappedBackButton(_ sender: UIButton) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func tappedActionSheetButton(_ sender: UIButton) {
+        self.present(actionSheetController, animated: true)
     }
     
     private func configActionSheet() {
-        let actionStop = UIAlertAction(title: "정지", style: .default) { _ in
+        let actionStop = UIAlertAction(title: "정지", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            present(stopSheetController, animated: true)
         }
         actionSheetController.addAction(actionStop)
         
-        let actionUnsubscribe = UIAlertAction(title: "탈퇴", style: .default) { _ in
+        let actionUnsubscribe = UIAlertAction(title: "탈퇴", style: .destructive) { [weak self] _ in
+            guard let self else { return }
+            showUnsubscribeAlert()
         }
         actionSheetController.addAction(actionUnsubscribe)
         
@@ -119,12 +134,50 @@ final class AdminUserDetailViewController: UIViewController {
         actionSheetController.addAction(actionCancel)
     }
     
+    private func configStopSheet() {
+        for during in DuringType.allCases {
+            let action = UIAlertAction(title: "\(during.name)", style: .destructive) { [weak self] _ in
+                guard let self else { return }
+                showStopAlert(duringType: during)
+            }
+            stopSheetController.addAction(action)
+        }
+        
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+        stopSheetController.addAction(actionCancel)
+    }
+    
+    private func showStopAlert(duringType: DuringType) {
+        showCustomAlert(
+            alertType: .canCancel,
+            titleText: "정지 알림",
+            messageText: "\(duringType.name) 정지시키시겠습니까 ?",
+            confirmButtonText: "정지",
+            comfrimAction: { [weak self] in
+                guard let self else { return }
+                stopPublish.onNext(duringType)
+            })
+    }
+    
+    private func showUnsubscribeAlert() {
+        showCustomAlert(
+            alertType: .canCancel,
+            titleText: "탈퇴 알림",
+            messageText: "탈퇴시키시겠습니까 ?",
+            confirmButtonText: "탈퇴",
+            comfrimAction: { [weak self] in
+                guard let self else { return }
+                unsubscribePublish.onNext(())
+            })
+    }
+    
     private func bind() {
         let input = AdminUserDetailViewModel.Input(
             viewDidLoad: viewDidLoadPublish.asObservable(),
             selectedRecordType: selectedRecordTypePublish.asObservable(),
             refreshable: refreshablePublish.asObservable(),
-            isUnsubscribe: unsubscribePublish.asObservable()
+            isUnsubscribe: unsubscribePublish.asObservable(),
+            isStop: stopPublish.asObservable()
         )
         let output = viewModel.transform(input: input)
         
@@ -152,11 +205,21 @@ final class AdminUserDetailViewController: UIViewController {
             }
             .disposed(by: disposeBag)
         
-        output.resultIsUnsubscribe
+        output.resultUnsubscribe
             .withUnretained(self)
             .observe(on: MainScheduler.instance)
             .subscribe(onNext: { viewController, _ in
                 viewController.showCustomAlert(alertType: .onlyConfirm, titleText: "알림", messageText: "탈퇴가 완료되었습니다.", confirmButtonText: "확인", comfrimAction: {
+                    viewController.navigationController?.popViewController(animated: true)
+                })
+            })
+            .disposed(by: disposeBag)
+        
+        output.resultStop
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { viewController, _ in
+                viewController.showCustomAlert(alertType: .onlyConfirm, titleText: "알림", messageText: "정지가 완료되었습니다.", confirmButtonText: "확인", comfrimAction: {
                     viewController.navigationController?.popViewController(animated: true)
                 })
             })
@@ -188,23 +251,6 @@ final class AdminUserDetailViewController: UIViewController {
     private func scrollToRow() {
         let indexPath = IndexPath(row: 0, section: 1)
         tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
-    
-    @objc private func tappedBackButton(_ sender: UIButton) {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func tappedUnsubscribeButton(_ sender: UIButton) {
-        self.present(actionSheetController, animated: true)
-//        showCustomAlert(
-//            alertType: .canCancel,
-//            titleText: "탈퇴 알림",
-//            messageText: "탈퇴시키시겠습니까 ?",
-//            confirmButtonText: "탈퇴",
-//            comfrimAction: { [weak self] in
-//                guard let self else { return }
-//                unsubscribePublish.onNext(())
-//            })
     }
 }
 
@@ -356,7 +402,7 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
 extension AdminUserDetailViewController {
     private func addViews() {
         view.addSubview([tableView, topView])
-        topView.addSubview([backButton, unsubscribeButton])
+        topView.addSubview([backButton, actionSheetButton])
     }
     
     private func makeConstraints() {
@@ -374,7 +420,7 @@ extension AdminUserDetailViewController {
             make.width.height.equalTo(topView.snp.height)
         }
         
-        unsubscribeButton.snp.makeConstraints { make in
+        actionSheetButton.snp.makeConstraints { make in
             make.top.trailing.equalToSuperview()
             make.width.height.equalTo(backButton.snp.height)
         }

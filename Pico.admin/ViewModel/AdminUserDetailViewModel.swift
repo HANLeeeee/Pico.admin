@@ -16,13 +16,15 @@ final class AdminUserDetailViewModel: ViewModelType {
         let selectedRecordType: Observable<RecordType>
         let refreshable: Observable<RecordType>
         let isUnsubscribe: Observable<Void>
+        let isStop: Observable<DuringType>
     }
     
     struct Output {
         let needToFirstLoad: Observable<Void>
         let resultRecordType: Observable<RecordType>
         let needToRefresh: Observable<Void>
-        let resultIsUnsubscribe: Observable<Void>
+        let resultUnsubscribe: Observable<Void>
+        let resultStop: Observable<Void>
         let needToRecordReload: Observable<Void>
     }
     
@@ -123,7 +125,19 @@ final class AdminUserDetailViewModel: ViewModelType {
         let responseUnsubscribe = input.isUnsubscribe
             .withUnretained(self)
             .flatMap { viewModel, _ in
-                return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: viewModel.selectedUser.id, data: viewModel.selectedUser)
+                let unsubscribe = Unsubscribe(createdDate: Date().timeIntervalSince1970, phoneNumber: viewModel.selectedUser.phoneNumber, user: viewModel.selectedUser)
+                return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: viewModel.selectedUser.id, data: unsubscribe)
+            }
+            .withUnretained(self)
+            .flatMap { viewModel, _ in
+                return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: viewModel.selectedUser.id)
+            }
+        
+        let responseStop = input.isStop
+            .withUnretained(self)
+            .flatMap { viewModel, duringType in
+                let stop = Stop(createdDate: Date().timeIntervalSince1970, during: duringType.number, phoneNumber: viewModel.selectedUser.phoneNumber, user: viewModel.selectedUser)
+                return FirestoreService.shared.saveDocumentRx(collectionId: .stop, documentId: viewModel.selectedUser.id, data: stop)
             }
             .withUnretained(self)
             .flatMap { viewModel, _ in
@@ -134,7 +148,8 @@ final class AdminUserDetailViewModel: ViewModelType {
             needToFirstLoad: responseViewDidLoad,
             resultRecordType: responseRecordType,
             needToRefresh: responseRefresh,
-            resultIsUnsubscribe: responseUnsubscribe,
+            resultUnsubscribe: responseUnsubscribe,
+            resultStop: responseStop,
             needToRecordReload: recordReloadPublisher.asObservable()
         )
     }
