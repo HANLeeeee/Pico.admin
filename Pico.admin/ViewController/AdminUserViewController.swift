@@ -27,20 +27,17 @@ final class AdminUserViewController: UIViewController {
     
     private lazy var usingMenu = UIAction(title: "사용중인 회원", image: UIImage(), handler: { [weak self] _ in
         guard let self = self else { return }
-        userListTypeBehavior.onNext(.using)
-        scrollToTop()
+        selectedUserListType(to: .using)
     })
     
     private lazy var stopMenu = UIAction(title: "정지된 회원", image: UIImage(), handler: { [weak self] _ in
         guard let self = self else { return }
-        userListTypeBehavior.onNext(.stop)
-        scrollToTop()
+        selectedUserListType(to: .stop)
     })
     
     private lazy var unsubscribedMenu = UIAction(title: "탈퇴된 회원", image: UIImage(), handler: { [weak self] _ in
         guard let self = self else { return }
-        userListTypeBehavior.onNext(.unsubscribe)
-        scrollToTop()
+        selectedUserListType(to: .unsubscribe)
     })
     
     private lazy var sortTypeMenu = UIMenu(title: "정렬 구분", options: .displayInline, children: sortMenus)
@@ -86,10 +83,11 @@ final class AdminUserViewController: UIViewController {
     private let searchButtonPublisher = PublishSubject<String>()
     private let tableViewOffsetPublisher = PublishSubject<Void>()
     private let refreshablePublisher = PublishSubject<Void>()
+    private let unsubscribePublish = PublishSubject<User>()
     
     private let refreshControl = UIRefreshControl()
-    
     private let padding: CGFloat = 10
+    private var userListType: UserListType = .using
     
     init(viewModel: AdminUserViewModel) {
         self.viewModel = viewModel
@@ -112,6 +110,7 @@ final class AdminUserViewController: UIViewController {
         configButtons()
         configTableView()
         configTableViewDatasource()
+        selectedUserListType(to: userListType)
         bind()
         viewDidLoadPublisher.onNext(())
     }
@@ -162,6 +161,13 @@ final class AdminUserViewController: UIViewController {
         tableView.tableFooterView = activityIndicator
     }
     
+    private func selectedUserListType(to userListType: UserListType) {
+        self.userListType = userListType
+        textFieldView.textField.placeholder = "\"\(userListType.name)\"의 이름을 입력하세요"
+        userListTypeBehavior.onNext(userListType)
+        scrollToTop()
+    }
+    
     private func bind() {
         let input = AdminUserViewModel.Input(
             viewDidLoad: viewDidLoadPublisher.asObservable(),
@@ -170,13 +176,10 @@ final class AdminUserViewController: UIViewController {
             userListType: userListTypeBehavior.asObservable(),
             searchButton: searchButtonPublisher.asObservable(),
             tableViewOffset: tableViewOffsetPublisher.asObservable(),
-            refreshable: refreshablePublisher.asObservable()
+            refreshable: refreshablePublisher.asObservable(),
+            isUnsubscribe: unsubscribePublish.asObservable()
         )
         let output = viewModel.transform(input: input)
-        
-        output.resultTitleLabel
-            .bind(to: textFieldView.textField.rx.placeholder)
-            .disposed(by: disposeBag)
 
         let mergedData = Observable.merge(output.resultToViewDidLoad, output.resultSearchUserList, output.resultPagingList)
         
@@ -212,6 +215,17 @@ final class AdminUserViewController: UIViewController {
             .withUnretained(self)
             .subscribe(onNext: { viewController, _ in
                 viewController.tableView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.resultUnsubscribe
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { viewController, _ in
+                viewController.showCustomAlert(alertType: .onlyConfirm, titleText: "알림", messageText: "탈퇴가 완료되었습니다.", confirmButtonText: "확인", comfrimAction: {
+                    // TODO: 여기 테이블뷰 새로고침
+//                    viewController.tableView.reloadData()
+                })
             })
             .disposed(by: disposeBag)
     }
@@ -272,6 +286,51 @@ extension AdminUserViewController {
                 viewController.navigationController?.pushViewController(detailViewController, animated: true)
             })
             .disposed(by: disposeBag)            
+        
+        tableView.rx.itemDeleted
+            .withUnretained(self)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] viewController, indexPath in
+                guard let self else { return }
+                guard let user = viewController.viewModel.userList[safe: indexPath.row] else { return }
+                
+                switch userListType {
+                case .using:
+                    print("using")
+                    unsubscribeUser(to: user)
+                case .stop:
+                    print("stop")
+                    reusingUser()
+                case .unsubscribe:
+                    print("unsubscribe")
+                    reusingUser()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func unsubscribeUser(to user: User) {
+        showCustomAlert(
+            alertType: .canCancel,
+            titleText: "탈퇴 알림",
+            messageText: "탈퇴시키시겠습니까 ?",
+            confirmButtonText: "탈퇴",
+            comfrimAction: { [weak self] in
+                guard let self else { return }
+                unsubscribePublish.onNext(user)
+            })
+    }
+    
+    private func reusingUser() {
+        showCustomAlert(
+            alertType: .canCancel,
+            titleText: "복구 알림",
+            messageText: "다시 복구시키시겠습니까 ?\n해당 회원은 다시 로그인할 수 있습니다.",
+            confirmButtonText: "복구",
+            comfrimAction: { [weak self] in
+                guard let self else { return }
+//                unsubscribePublish.onNext(())
+            })
     }
 }
 

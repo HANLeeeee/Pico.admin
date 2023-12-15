@@ -97,20 +97,22 @@ final class AdminUserViewModel: ViewModelType {
         let searchButton: Observable<String>
         let tableViewOffset: Observable<Void>
         let refreshable: Observable<Void>
+        let isUnsubscribe: Observable<User>
     }
     
     struct Output {
         let resultToViewDidLoad: Observable<[User]>
-        let resultTitleLabel: Observable<String>
         let resultSearchUserList: Observable<[User]>
         let resultPagingList: Observable<[User]>
         let resultEmptyList: Observable<Bool>
         let needToReload: Observable<Void>
+        let resultUnsubscribe: Observable<Void>
     }
     
     private let itemsPerPage: Int = 20
     private var lastDocumentSnapshot: DocumentSnapshot?
     
+    private var selectedUser: User?
     private(set) var userList: [User] = [] {
         didSet {
             isEmptyList.onNext(userList.isEmpty)
@@ -147,11 +149,6 @@ final class AdminUserViewModel: ViewModelType {
         
         let sortedType = input.sortedType.asObservable()
         let userListType = input.userListType.asObservable()
-        
-        let responseTitleLabel = input.userListType
-            .map { userListType in
-                return "\"\(userListType.name)\"의 이름을 입력하세요"
-            }
         
         let responseTableViewPaging = input.tableViewOffset
             .withUnretained(self)
@@ -198,13 +195,26 @@ final class AdminUserViewModel: ViewModelType {
                 return Array(setList)
             }
         
+        let responseUnsubscribe = input.isUnsubscribe
+            .withUnretained(self)
+            .flatMap { viewModel, user in
+                viewModel.selectedUser = user
+                let unsubscribe = Unsubscribe(createdDate: Date().timeIntervalSince1970, phoneNumber: user.phoneNumber, user: user)
+                return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: user.id, data: unsubscribe)
+            }
+            .withUnretained(self)
+            .flatMap { viewModel, _ in
+                // TODO: 강제언래핑 수정
+                return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: viewModel.selectedUser!.id)
+            }
+        
         return Output(
             resultToViewDidLoad: responseViewDidLoad,
-            resultTitleLabel: responseTitleLabel,
             resultSearchUserList: combinedResults,
             resultPagingList: responseTableViewPaging,
             resultEmptyList: isEmptyList.asObservable(),
-            needToReload: reloadPublisher.asObservable()
+            needToReload: reloadPublisher.asObservable(),
+            resultUnsubscribe: responseUnsubscribe
         )
     }
     
