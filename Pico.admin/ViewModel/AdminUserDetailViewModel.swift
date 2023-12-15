@@ -28,17 +28,23 @@ final class AdminUserDetailViewModel: ViewModelType {
         let needToRecordReload: Observable<Void>
     }
     
+    private(set) var likeList: [Like.LikeInfo] = [] {
+        didSet {
+            isEmpty = likeList.isEmpty
+            recordReloadPublisher.onNext(())
+        }
+    }
+    private(set) var dislikeList: [Like.LikeInfo] = [] {
+        didSet {
+            recordReloadPublisher.onNext(())
+        }
+    }
     private(set) var reportList: [Report.ReportInfo] = [] {
         didSet {
             recordReloadPublisher.onNext(())
         }
     }
     private(set) var blockList: [Block.BlockInfo] = [] {
-        didSet {
-            recordReloadPublisher.onNext(())
-        }
-    }
-    private(set) var likeList: [Like.LikeInfo] = [] {
         didSet {
             recordReloadPublisher.onNext(())
         }
@@ -53,9 +59,10 @@ final class AdminUserDetailViewModel: ViewModelType {
     var selectedUser: User
     var isEmpty: Bool = true
     private let pageSize = 7
+    private var startLikeIndex = 0
+    private var startDislikeIndex = 0
     private var startReportIndex = 0
     private var startBlockIndex = 0
-    private var startLikeIndex = 0
     private var startPaymentIndex = 0
     
     init(selectedUser: User) {
@@ -63,14 +70,17 @@ final class AdminUserDetailViewModel: ViewModelType {
     }
     
     private func resetList() {
+        startLikeIndex = 0
+        likeList.removeAll()
+        
+        startDislikeIndex = 0
+        dislikeList.removeAll()
+        
         startReportIndex = 0
         reportList.removeAll()
         
         startBlockIndex = 0
         blockList.removeAll()
-        
-        startLikeIndex = 0
-        likeList.removeAll()
         
         startPaymentIndex = 0
         paymentList.removeAll()
@@ -80,12 +90,13 @@ final class AdminUserDetailViewModel: ViewModelType {
         let responseViewDidLoad = input.viewDidLoad
             .withUnretained(self)
             .flatMap { viewModel, _ -> Observable<Void> in
+                let fetchLikes = viewModel.fetchLikes(likeType: .like)
+                let fetchDislikes = viewModel.fetchLikes(likeType: .dislike)
                 let fetchReports = viewModel.fetchReports()
                 let fetchBlocks = viewModel.fetchBlocks()
-                let fetchLikes = viewModel.fetchLikes()
                 let fetchPayments = viewModel.fetchPayments()
                 
-                return Observable.zip(fetchReports, fetchBlocks, fetchLikes, fetchPayments)
+                return Observable.zip(fetchLikes, fetchDislikes, fetchReports, fetchBlocks, fetchPayments)
                     .map { _ in return () }
             }
         
@@ -93,12 +104,14 @@ final class AdminUserDetailViewModel: ViewModelType {
             .withUnretained(self)
             .map { viewModel, recordType in
                 switch recordType {
+                case .like:
+                    viewModel.isEmpty = viewModel.likeList.isEmpty
+                case .dislike:
+                    viewModel.isEmpty = viewModel.dislikeList.isEmpty
                 case .report:
                     viewModel.isEmpty = viewModel.reportList.isEmpty
                 case .block:
                     viewModel.isEmpty = viewModel.blockList.isEmpty
-                case .like:
-                    viewModel.isEmpty = viewModel.likeList.isEmpty
                 case .payment:
                     viewModel.isEmpty = viewModel.paymentList.isEmpty
                 }
@@ -110,12 +123,14 @@ final class AdminUserDetailViewModel: ViewModelType {
             .flatMap { viewModel, recordType in
                 print("refreshable")
                 switch recordType {
+                case .like:
+                    return viewModel.fetchLikes(likeType: .like)
+                case .dislike:
+                    return viewModel.fetchLikes(likeType: .dislike)
                 case .report:
                     return viewModel.fetchReports()
                 case .block:
                     return viewModel.fetchBlocks()
-                case .like:
-                    return viewModel.fetchLikes()
                 case .payment:
                     return viewModel.fetchPayments()
                 }
@@ -242,7 +257,7 @@ final class AdminUserDetailViewModel: ViewModelType {
     }
     
     // MARK: - 좋아요 패치
-    private func fetchLikes() -> Observable<Void> {
+    private func fetchLikes(likeType: Like.LikeType) -> Observable<Void> {
         let dbRef = Firestore.firestore()
             .collection(Collections.likes.name)
             .document(selectedUser.id)
@@ -251,26 +266,43 @@ final class AdminUserDetailViewModel: ViewModelType {
         
         return Observable.create { [weak self] emitter in
             guard let self else { return Disposables.create() }
-            
             DispatchQueue.global().async {
                 dbRef.getDocument { [weak self] document, error in
                     guard let self else { return }
                     if let error {
                         emitter.onError(error)
                     }
-                    
                     if let document {
-                        if let datas = try? document.data(as: Like.self).recivedlikes?.filter({ $0.likeType == .like || $0.likeType == .matching }) {
-                            let sorted = datas.sorted {
-                                return $0.createdDate > $1.createdDate
-                            }
-                            if startLikeIndex > sorted.count - 1 {
-                                emitter.onNext(())
-                            } else {
-                                let currentPageDatas: [Like.LikeInfo] = Array(sorted[startLikeIndex..<min(endIndex, sorted.count)])
-                                likeList.append(contentsOf: currentPageDatas)
-                                startLikeIndex += currentPageDatas.count
-                                emitter.onNext(())
+                        if let datas = try? document.data(as: Like.self).recivedlikes {
+                            if likeType == .like {
+                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                                let sorted = filtered.sorted {
+                                    return $0.createdDate > $1.createdDate
+                                }
+                                if startLikeIndex > sorted.count - 1 {
+                                    emitter.onNext(())
+                                } else {
+                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startLikeIndex..<min(endIndex, sorted.count)])
+                                    
+                                    likeList.append(contentsOf: currentPageDatas)
+                                    startLikeIndex += currentPageDatas.count
+                                    emitter.onNext(())
+                                }
+                                
+                            } else if likeType == .dislike {
+                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                                let sorted = filtered.sorted {
+                                    return $0.createdDate > $1.createdDate
+                                }
+                                if startDislikeIndex > sorted.count - 1 {
+                                    emitter.onNext(())
+                                } else {
+                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startDislikeIndex..<min(endIndex, sorted.count)])
+                                    
+                                    dislikeList.append(contentsOf: currentPageDatas)
+                                    startDislikeIndex += currentPageDatas.count
+                                    emitter.onNext(())
+                                }
                             }
                         }
                     } else {

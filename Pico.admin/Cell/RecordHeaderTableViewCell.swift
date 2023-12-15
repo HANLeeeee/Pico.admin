@@ -10,9 +10,10 @@ import SnapKit
 import RxSwift
 
 enum RecordType: String, CaseIterable {
+    case like
+    case dislike
     case report
     case block
-    case like
     case payment
     
     var name: String {
@@ -21,12 +22,14 @@ enum RecordType: String, CaseIterable {
     
     var title: String {
         switch self {
+        case .like:
+            return "받은 좋아요 기록"
+        case .dislike:
+            return "받은 싫어요 기록"
         case .report:
             return "받은 신고 기록"
         case .block:
             return "받은 차단 기록"
-        case .like:
-            return "받은 좋아요 기록"
         case .payment:
             return "결제 기록"
         }
@@ -34,12 +37,14 @@ enum RecordType: String, CaseIterable {
     
     var content: String {
         switch self {
+        case .like:
+            return "님이 좋아요를 누르셨습니다."
+        case .dislike:
+            return "님이 싫어요를 누르셨습니다."
         case .report:
             return "님이 신고하셨습니다."
         case .block:
             return "님이 차단하였습니다."
-        case .like:
-            return "님이 좋아요를 누르셨습니다."
         case .payment:
             return "원 결제"
         }
@@ -47,12 +52,14 @@ enum RecordType: String, CaseIterable {
     
     var iconSystemImageName: String {
         switch self {
+        case .like:
+            return "heart.fill"
+        case .dislike:
+            return "heart"
         case .report:
             return "exclamationmark.bubble.fill"
         case .block:
             return "exclamationmark.bubble.fill"
-        case .like:
-            return "heart.fill"
         case .payment:
             return "wonsign.circle.fill"
         }
@@ -62,6 +69,8 @@ enum RecordType: String, CaseIterable {
         switch self {
         case .like:
             return .systemPink
+        case .dislike:
+            return .systemBlue
         case .report:
             return .systemRed
         case .block:
@@ -74,6 +83,8 @@ enum RecordType: String, CaseIterable {
     var collectionId: Collections {
         switch self {
         case .like:
+            return .likes
+        case .dislike:
             return .likes
         case .report:
             return .report

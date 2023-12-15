@@ -62,7 +62,7 @@ final class AdminUserDetailViewController: UIViewController {
     private let stopPublish = PublishSubject<DuringType>()
     private let cellRecordTypePublish = PublishSubject<RecordType>()
     
-    private var currentRecordType: RecordType = .report {
+    private var currentRecordType: RecordType = .like {
         didSet {
             reloadRecordSection()
         }
@@ -272,12 +272,14 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             return viewModel.isEmpty ? 1 : 0
         case .record:
             switch currentRecordType {
+            case .like:
+                return viewModel.likeList.count
+            case .dislike:
+                return viewModel.dislikeList.count
             case .report:
                 return viewModel.reportList.count
             case .block:
                 return viewModel.blockList.count
-            case .like:
-                return viewModel.likeList.count
             case .payment:
                 return viewModel.paymentList.count
             }
@@ -324,6 +326,16 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: AdminUserTableViewCell.self)
             
             switch currentRecordType {
+            // 좋아요기록
+            case .like:
+                guard let user = viewModel.likeList[safe: indexPath.row] else { return UITableViewCell() }
+                cell.configData(recordType: .like, imageUrl: user.imageURL, nickName: user.nickName, age: user.age, mbti: user.mbti, createdDate: user.createdDate)
+                
+            // 싫어요기록
+            case .dislike:
+                guard let user = viewModel.dislikeList[safe: indexPath.row] else { return UITableViewCell() }
+                cell.configData(recordType: .dislike, imageUrl: user.imageURL, nickName: user.nickName, age: user.age, mbti: user.mbti, createdDate: user.createdDate)
+                
             // 신고기록
             case .report:
                 guard let user = viewModel.reportList[safe: indexPath.row] else { return UITableViewCell() }
@@ -333,11 +345,6 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             case .block:
                 guard let user = viewModel.blockList[safe: indexPath.row] else { return UITableViewCell() }
                 cell.configData(recordType: .block, imageUrl: user.imageURL, nickName: user.nickName, age: user.age, mbti: user.mbti, createdDate: user.createdDate)
-                
-            // 좋아요기록
-            case .like:
-                guard let user = viewModel.likeList[safe: indexPath.row] else { return UITableViewCell() }
-                cell.configData(recordType: .like, imageUrl: user.imageURL, nickName: user.nickName, age: user.age, mbti: user.mbti, createdDate: user.createdDate)
             
             // 결제기록
             case .payment:
