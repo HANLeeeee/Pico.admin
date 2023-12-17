@@ -168,6 +168,72 @@ final class AdminUserDetailViewModel: ViewModelType {
         )
     }
     
+    // MARK: - 좋아요 패치
+    private func fetchLikes(likeType: Like.LikeType) -> Observable<Void> {
+        let dbRef = Firestore.firestore()
+            .collection(Collections.likes.name)
+            .document(selectedUser.id)
+        
+        var likeIndex: Int = 0
+        if likeType == .like {
+            likeIndex = startLikeIndex
+        } else if likeType == .dislike {
+            likeIndex = startDislikeIndex
+        }
+        
+        let endIndex = likeIndex + pageSize
+        
+        return Observable.create { [weak self] emitter in
+            guard let self else { return Disposables.create() }
+            DispatchQueue.global().async {
+                dbRef.getDocument { [weak self] document, error in
+                    guard let self else { return }
+                    if let error {
+                        emitter.onError(error)
+                    }
+                    if let document {
+                        if let datas = try? document.data(as: Like.self).recivedlikes {
+                            if likeType == .like {
+                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                                let sorted = filtered.sorted {
+                                    return $0.createdDate > $1.createdDate
+                                }
+                                if startLikeIndex > sorted.count - 1 {
+                                    emitter.onNext(())
+                                } else {
+                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startLikeIndex..<min(endIndex, sorted.count)])
+                                    
+                                    likeList.append(contentsOf: currentPageDatas)
+                                    startLikeIndex += currentPageDatas.count
+                                    emitter.onNext(())
+                                }
+                                
+                            } else if likeType == .dislike {
+                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                                let sorted = filtered.sorted {
+                                    return $0.createdDate > $1.createdDate
+                                }
+                                if startDislikeIndex > sorted.count - 1 {
+                                    emitter.onNext(())
+                                } else {
+                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startDislikeIndex..<min(endIndex, sorted.count)])
+                                    
+                                    dislikeList.append(contentsOf: currentPageDatas)
+                                    startDislikeIndex += currentPageDatas.count
+                                    emitter.onNext(())
+                                }
+                            }
+                        }
+                    } else {
+                        emitter.onNext(())
+                    }
+                    emitter.onCompleted()
+                }
+            }
+            return Disposables.create()
+        }
+    }
+    
     // MARK: - 신고 패치
     private func fetchReports() -> Observable<Void> {
         let dbRef = Firestore.firestore()
@@ -250,65 +316,6 @@ final class AdminUserDetailViewModel: ViewModelType {
                         observer.onNext(())
                     }
                     observer.onCompleted()
-                }
-            }
-            return Disposables.create()
-        }
-    }
-    
-    // MARK: - 좋아요 패치
-    private func fetchLikes(likeType: Like.LikeType) -> Observable<Void> {
-        let dbRef = Firestore.firestore()
-            .collection(Collections.likes.name)
-            .document(selectedUser.id)
-        
-        let endIndex = startLikeIndex + pageSize
-        
-        return Observable.create { [weak self] emitter in
-            guard let self else { return Disposables.create() }
-            DispatchQueue.global().async {
-                dbRef.getDocument { [weak self] document, error in
-                    guard let self else { return }
-                    if let error {
-                        emitter.onError(error)
-                    }
-                    if let document {
-                        if let datas = try? document.data(as: Like.self).recivedlikes {
-                            if likeType == .like {
-                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
-                                let sorted = filtered.sorted {
-                                    return $0.createdDate > $1.createdDate
-                                }
-                                if startLikeIndex > sorted.count - 1 {
-                                    emitter.onNext(())
-                                } else {
-                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startLikeIndex..<min(endIndex, sorted.count)])
-                                    
-                                    likeList.append(contentsOf: currentPageDatas)
-                                    startLikeIndex += currentPageDatas.count
-                                    emitter.onNext(())
-                                }
-                                
-                            } else if likeType == .dislike {
-                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
-                                let sorted = filtered.sorted {
-                                    return $0.createdDate > $1.createdDate
-                                }
-                                if startDislikeIndex > sorted.count - 1 {
-                                    emitter.onNext(())
-                                } else {
-                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startDislikeIndex..<min(endIndex, sorted.count)])
-                                    
-                                    dislikeList.append(contentsOf: currentPageDatas)
-                                    startDislikeIndex += currentPageDatas.count
-                                    emitter.onNext(())
-                                }
-                            }
-                        }
-                    } else {
-                        emitter.onNext(())
-                    }
-                    emitter.onCompleted()
                 }
             }
             return Disposables.create()
