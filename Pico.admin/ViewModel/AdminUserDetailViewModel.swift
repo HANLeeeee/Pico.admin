@@ -209,7 +209,7 @@ final class AdminUserDetailViewModel: ViewModelType {
                                 }
                                 
                             } else if likeType == .dislike {
-                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                                let filtered = datas.filter { $0.likeType == likeType }
                                 let sorted = filtered.sorted {
                                     return $0.createdDate > $1.createdDate
                                 }
