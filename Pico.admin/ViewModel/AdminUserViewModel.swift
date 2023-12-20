@@ -107,8 +107,8 @@ final class AdminUserViewModel: ViewModelType {
         let resultPagingList: Observable<[User]>
         let resultEmptyList: Observable<Bool>
         let needToReload: Observable<Void>
-        let resultUnsubscribe: Observable<Void>
         let resultReusing: Observable<Void>
+        let resultUnsubscribe: Observable<Void>
     }
     
     private let itemsPerPage: Int = 20
@@ -196,16 +196,6 @@ final class AdminUserViewModel: ViewModelType {
                 return Array(setList)
             }
         
-        let responseUnsubscribe = input.isUnsubscribe
-            .withUnretained(self)
-            .flatMap { viewModel, user in
-                let unsubscribe = Unsubscribe(createdDate: Date().timeIntervalSince1970, phoneNumber: user.phoneNumber, user: user)
-                return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: user.id, data: unsubscribe)
-                    .flatMap { _ in
-                        return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: user.id)
-                    }
-            }
-        
         let responseReusing = input.isReusing
             .withUnretained(self)
             .flatMap { viewModel, data in
@@ -216,14 +206,24 @@ final class AdminUserViewModel: ViewModelType {
                     }
             }
         
+        let responseUnsubscribe = input.isUnsubscribe
+            .withUnretained(self)
+            .flatMap { viewModel, user in
+                let unsubscribe = Unsubscribe(createdDate: Date().timeIntervalSince1970, phoneNumber: user.phoneNumber, user: user)
+                return FirestoreService.shared.saveDocumentRx(collectionId: .unsubscribe, documentId: user.id, data: unsubscribe)
+                    .flatMap { _ in
+                        return FirestoreService.shared.removeDocumentRx(collectionId: .users, documentId: user.id)
+                    }
+            }
+        
         return Output(
             resultToViewDidLoad: responseViewDidLoad,
             resultSearchUserList: combinedResults,
             resultPagingList: responseTableViewPaging,
             resultEmptyList: isEmptyList.asObservable(),
             needToReload: reloadPublisher.asObservable(),
-            resultUnsubscribe: responseUnsubscribe,
-            resultReusing: responseReusing
+            resultReusing: responseReusing,
+            resultUnsubscribe: responseUnsubscribe
         )
     }
     
