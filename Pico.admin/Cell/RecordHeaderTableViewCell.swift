@@ -10,6 +10,7 @@ import SnapKit
 import RxSwift
 
 enum RecordType: String, CaseIterable {
+    case matching
     case like
     case dislike
     case report
@@ -22,6 +23,8 @@ enum RecordType: String, CaseIterable {
     
     var title: String {
         switch self {
+        case .matching:
+            return "매칭 기록"
         case .like:
             return "받은 좋아요 기록"
         case .dislike:
@@ -37,6 +40,8 @@ enum RecordType: String, CaseIterable {
     
     var content: String {
         switch self {
+        case .matching:
+            return "님과 매칭되었습니다."
         case .like:
             return "님이 좋아요를 누르셨습니다."
         case .dislike:
@@ -52,6 +57,8 @@ enum RecordType: String, CaseIterable {
     
     var iconSystemImageName: String {
         switch self {
+        case .matching:
+            return "bolt.heart.fill"
         case .like:
             return "heart.fill"
         case .dislike:
@@ -67,6 +74,8 @@ enum RecordType: String, CaseIterable {
     
     var iconColor: UIColor {
         switch self {
+        case .matching:
+            return .systemPink
         case .like:
             return .systemPink
         case .dislike:
@@ -82,6 +91,8 @@ enum RecordType: String, CaseIterable {
     
     var collectionId: Collections {
         switch self {
+        case .matching:
+            return .likes
         case .like:
             return .likes
         case .dislike:

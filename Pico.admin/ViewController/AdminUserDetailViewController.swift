@@ -62,7 +62,7 @@ final class AdminUserDetailViewController: UIViewController {
     private let stopPublish = PublishSubject<DuringType>()
     private let cellRecordTypePublish = PublishSubject<RecordType>()
     
-    private var currentRecordType: RecordType = .like {
+    private var currentRecordType: RecordType = .matching {
         didSet {
             reloadRecordSection()
         }
@@ -184,8 +184,8 @@ final class AdminUserDetailViewController: UIViewController {
         output.needToFirstLoad
             .withUnretained(self)
             .subscribe { viewController, _ in
+                print("viewController.viewModel.matchingList \(viewController.viewModel.matchingList.count)")
                 print("viewController.viewModel.reportList \(viewController.viewModel.reportList.count)")
-                print("viewController.viewModel.likeList \(viewController.viewModel.likeList.count)")
             }
             .disposed(by: disposeBag)
         
@@ -272,6 +272,8 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             return viewModel.isEmpty ? 1 : 0
         case .record:
             switch currentRecordType {
+            case .matching:
+                return viewModel.matchingList.count
             case .like:
                 return viewModel.likeList.count
             case .dislike:
@@ -326,6 +328,11 @@ extension AdminUserDetailViewController: UITableViewDelegate, UITableViewDataSou
             let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: AdminUserTableViewCell.self)
             
             switch currentRecordType {
+            // 매칭기록
+            case .matching:
+                guard let user = viewModel.matchingList[safe: indexPath.row] else { return UITableViewCell() }
+                cell.configData(recordType: .matching, imageUrl: user.imageURL, nickName: user.nickName, age: user.age, mbti: user.mbti, createdDate: user.createdDate)
+                
             // 좋아요기록
             case .like:
                 guard let user = viewModel.likeList[safe: indexPath.row] else { return UITableViewCell() }

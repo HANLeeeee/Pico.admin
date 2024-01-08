@@ -7,9 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B13789F72B3334EA0037E14D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13789F62B3334EA0037E14D /* NotificationService.swift */; };
+		B160C6512B4C33AE0041D612 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B160C6502B4C33AE0041D612 /* FirebaseMessaging */; };
+		B160C6532B4C34040041D612 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C6522B4C34040041D612 /* Token.swift */; };
 		B18BD04D2B2B981400729A10 /* Unsubscribe.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18BD04C2B2B981400729A10 /* Unsubscribe.swift */; };
 		B18BD04F2B2B982100729A10 /* Stop.swift in Sources */ = {isa = PBXBuildFile; fileRef = B18BD04E2B2B982100729A10 /* Stop.swift */; };
-		B18BD0952B2D092300729A10 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B18BD0942B2D092300729A10 /* GoogleService-Info.plist */; };
 		B1A39D132B2238E30050A33E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D122B2238E30050A33E /* AppDelegate.swift */; };
 		B1A39D152B2238E30050A33E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D142B2238E30050A33E /* SceneDelegate.swift */; };
 		B1A39D172B2238E30050A33E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D162B2238E30050A33E /* ViewController.swift */; };
@@ -88,9 +90,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B13789F62B3334EA0037E14D /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		B160C6522B4C34040041D612 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		B18BD04C2B2B981400729A10 /* Unsubscribe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsubscribe.swift; sourceTree = "<group>"; };
 		B18BD04E2B2B982100729A10 /* Stop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stop.swift; sourceTree = "<group>"; };
-		B18BD0942B2D092300729A10 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../관리자파일/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B1A39D0F2B2238E30050A33E /* Pico.admin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pico.admin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D122B2238E30050A33E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B1A39D142B2238E30050A33E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -153,6 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B160C6512B4C33AE0041D612 /* FirebaseMessaging in Frameworks */,
 				B1A5948B2B24709800565C8C /* RxCocoa in Frameworks */,
 				B1A594882B24708100565C8C /* Kingfisher in Frameworks */,
 				B1A5948E2B2470E200565C8C /* RxSwift in Frameworks */,
@@ -266,7 +270,6 @@
 				B1A39D1B2B2238E80050A33E /* Assets.xcassets */,
 				B1A39D202B2238E80050A33E /* Info.plist */,
 				B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */,
-				B18BD0942B2D092300729A10 /* GoogleService-Info.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 				B1A594C42B2477BD00565C8C /* Payment.swift */,
 				B18BD04C2B2B981400729A10 /* Unsubscribe.swift */,
 				B18BD04E2B2B982100729A10 /* Stop.swift */,
+				B160C6522B4C34040041D612 /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -310,6 +314,7 @@
 			isa = PBXGroup;
 			children = (
 				B1A5949C2B24739000565C8C /* FirestoreService.swift */,
+				B13789F62B3334EA0037E14D /* NotificationService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				B1A594922B2471E400565C8C /* FirebaseFirestore */,
 				B1A594942B2471E400565C8C /* FirebaseStorage */,
 				B1A594A12B24742B00565C8C /* FirebaseFirestoreSwift */,
+				B160C6502B4C33AE0041D612 /* FirebaseMessaging */,
 			);
 			productName = pico.admin;
 			productReference = B1A39D0F2B2238E30050A33E /* Pico.admin.app */;
@@ -469,7 +475,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */,
-				B18BD0952B2D092300729A10 /* GoogleService-Info.plist in Resources */,
 				B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -496,6 +501,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B1A594AF2B24756D00565C8C /* User.swift in Sources */,
+				B160C6532B4C34040041D612 /* Token.swift in Sources */,
 				B1A594C32B24779A00565C8C /* MBTI.swift in Sources */,
 				B1A594C72B2477EE00565C8C /* CustomIndicator.swift in Sources */,
 				B1A594A42B24746400565C8C /* UIView+Extensions.swift in Sources */,
@@ -518,6 +524,7 @@
 				B1A594972B2472AA00565C8C /* ViewModelType.swift in Sources */,
 				B1A39D5A2B22398E0050A33E /* AdminUserTableViewCell.swift in Sources */,
 				B1A594AD2B24754500565C8C /* UIViewController+Extensions.swift in Sources */,
+				B13789F72B3334EA0037E14D /* NotificationService.swift in Sources */,
 				B1A594D12B24793200565C8C /* SubInfo.swift in Sources */,
 				B1A39D532B22398E0050A33E /* AdminReportViewModel.swift in Sources */,
 				B1A594BD2B24764600565C8C /* UITableView+Extensions.swift in Sources */,
@@ -917,6 +924,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		B160C6502B4C33AE0041D612 /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B1A594912B2471AC00565C8C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
 		B1A594842B24706000565C8C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B1A594832B24706000565C8C /* XCRemoteSwiftPackageReference "SnapKit" */;

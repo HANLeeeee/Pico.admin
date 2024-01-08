@@ -28,6 +28,12 @@ final class AdminUserDetailViewModel: ViewModelType {
         let needToRecordReload: Observable<Void>
     }
     
+    private(set) var matchingList: [Like.LikeInfo] = [] {
+        didSet {
+            isEmpty = matchingList.isEmpty
+            recordReloadPublisher.onNext(())
+        }
+    }
     private(set) var likeList: [Like.LikeInfo] = [] {
         didSet {
             isEmpty = likeList.isEmpty
@@ -59,6 +65,7 @@ final class AdminUserDetailViewModel: ViewModelType {
     var selectedUser: User
     var isEmpty: Bool = true
     private let pageSize = 7
+    private var startMatchingIndex = 0
     private var startLikeIndex = 0
     private var startDislikeIndex = 0
     private var startReportIndex = 0
@@ -70,6 +77,9 @@ final class AdminUserDetailViewModel: ViewModelType {
     }
     
     private func resetList() {
+        startMatchingIndex = 0
+        matchingList.removeAll()
+        
         startLikeIndex = 0
         likeList.removeAll()
         
@@ -90,13 +100,14 @@ final class AdminUserDetailViewModel: ViewModelType {
         let responseViewDidLoad = input.viewDidLoad
             .withUnretained(self)
             .flatMap { viewModel, _ -> Observable<Void> in
+                let fetchMatching = viewModel.fetchLikes(likeType: .matching)
                 let fetchLikes = viewModel.fetchLikes(likeType: .like)
                 let fetchDislikes = viewModel.fetchLikes(likeType: .dislike)
                 let fetchReports = viewModel.fetchReports()
                 let fetchBlocks = viewModel.fetchBlocks()
                 let fetchPayments = viewModel.fetchPayments()
                 
-                return Observable.zip(fetchLikes, fetchDislikes, fetchReports, fetchBlocks, fetchPayments)
+                return Observable.zip(fetchMatching, fetchLikes, fetchDislikes, fetchReports, fetchBlocks, fetchPayments)
                     .map { _ in return () }
             }
         
@@ -104,6 +115,8 @@ final class AdminUserDetailViewModel: ViewModelType {
             .withUnretained(self)
             .map { viewModel, recordType in
                 switch recordType {
+                case .matching:
+                    viewModel.isEmpty = viewModel.matchingList.isEmpty
                 case .like:
                     viewModel.isEmpty = viewModel.likeList.isEmpty
                 case .dislike:
@@ -123,6 +136,8 @@ final class AdminUserDetailViewModel: ViewModelType {
             .flatMap { viewModel, recordType in
                 print("refreshable")
                 switch recordType {
+                case .matching:
+                    return viewModel.fetchLikes(likeType: .matching)
                 case .like:
                     return viewModel.fetchLikes(likeType: .like)
                 case .dislike:
@@ -179,6 +194,8 @@ final class AdminUserDetailViewModel: ViewModelType {
             likeIndex = startLikeIndex
         } else if likeType == .dislike {
             likeIndex = startDislikeIndex
+        } else {
+            likeIndex = startMatchingIndex
         }
         
         let endIndex = likeIndex + pageSize
@@ -192,9 +209,9 @@ final class AdminUserDetailViewModel: ViewModelType {
                         emitter.onError(error)
                     }
                     if let document {
-                        if let datas = try? document.data(as: Like.self).recivedlikes {
-                            if likeType == .like {
-                                let filtered = datas.filter { $0.likeType == likeType || $0.likeType == .matching }
+                        if likeType == .like {
+                            if let datas = try? document.data(as: Like.self).recivedlikes {
+                                let filtered = datas.filter { $0.likeType == .like }
                                 let sorted = filtered.sorted {
                                     return $0.createdDate > $1.createdDate
                                 }
@@ -207,9 +224,10 @@ final class AdminUserDetailViewModel: ViewModelType {
                                     startLikeIndex += currentPageDatas.count
                                     emitter.onNext(())
                                 }
-                                
-                            } else if likeType == .dislike {
-                                let filtered = datas.filter { $0.likeType == likeType }
+                            }
+                        } else if likeType == .dislike {
+                            if let datas = try? document.data(as: Like.self).recivedlikes {
+                                let filtered = datas.filter { $0.likeType == .dislike }
                                 let sorted = filtered.sorted {
                                     return $0.createdDate > $1.createdDate
                                 }
@@ -223,7 +241,24 @@ final class AdminUserDetailViewModel: ViewModelType {
                                     emitter.onNext(())
                                 }
                             }
+                        } else {
+                            if let datas = try? document.data(as: Like.self).sendedlikes {
+                                let filtered = datas.filter { $0.likeType == .matching }
+                                let sorted = filtered.sorted {
+                                    return $0.createdDate > $1.createdDate
+                                }
+                                if startMatchingIndex > sorted.count - 1 {
+                                    emitter.onNext(())
+                                } else {
+                                    let currentPageDatas: [Like.LikeInfo] = Array(sorted[startMatchingIndex..<min(endIndex, sorted.count)])
+                                    
+                                    matchingList.append(contentsOf: currentPageDatas)
+                                    startMatchingIndex += currentPageDatas.count
+                                    emitter.onNext(())
+                                }
+                            }
                         }
+                        
                     } else {
                         emitter.onNext(())
                     }
