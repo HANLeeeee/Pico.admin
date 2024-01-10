@@ -55,17 +55,17 @@ enum UserSortType: CaseIterable {
     var name: String {
         switch self {
         case .dateDescending:
-            return "가입일 내림차순"
+            return "가입일 최신 순"
         case .dateAscending:
-            return "가입일 오름차순"
+            return "가입일 오래된 순"
         case .nameDescending:
-            return "이름 내림차순"
+            return "이름 가나다 역순"
         case .nameAscending:
-            return "이름 오름차순"
+            return "이름 가나다 순"
         case .ageDescending:
-            return "나이 내림차순"
+            return "나이 적은 순"
         case .ageAscending:
-            return "나이 오름차순"
+            return "나이 많은 순"
         }
     }
     

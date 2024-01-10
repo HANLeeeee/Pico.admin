@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B1089BAB2B4EE30E00174598 /* FirebaseAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1089BA82B4EE30E00174598 /* FirebaseAPIKeys.plist */; };
+		B1089BAC2B4EE30E00174598 /* NaverAPIKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1089BA92B4EE30E00174598 /* NaverAPIKeys.plist */; };
+		B1089BAD2B4EE30E00174598 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B1089BAA2B4EE30E00174598 /* GoogleService-Info.plist */; };
 		B13789F72B3334EA0037E14D /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B13789F62B3334EA0037E14D /* NotificationService.swift */; };
 		B160C6512B4C33AE0041D612 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = B160C6502B4C33AE0041D612 /* FirebaseMessaging */; };
 		B160C6532B4C34040041D612 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = B160C6522B4C34040041D612 /* Token.swift */; };
@@ -90,6 +93,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B1089BA82B4EE30E00174598 /* FirebaseAPIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FirebaseAPIKeys.plist; sourceTree = "<group>"; };
+		B1089BA92B4EE30E00174598 /* NaverAPIKeys.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = NaverAPIKeys.plist; sourceTree = "<group>"; };
+		B1089BAA2B4EE30E00174598 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B13789F62B3334EA0037E14D /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		B160C6522B4C34040041D612 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		B18BD04C2B2B981400729A10 /* Unsubscribe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unsubscribe.swift; sourceTree = "<group>"; };
@@ -269,6 +275,9 @@
 				B1A39D162B2238E30050A33E /* ViewController.swift */,
 				B1A39D1B2B2238E80050A33E /* Assets.xcassets */,
 				B1A39D202B2238E80050A33E /* Info.plist */,
+				B1089BA82B4EE30E00174598 /* FirebaseAPIKeys.plist */,
+				B1089BAA2B4EE30E00174598 /* GoogleService-Info.plist */,
+				B1089BA92B4EE30E00174598 /* NaverAPIKeys.plist */,
 				B1A594E02B247C6200565C8C /* LaunchScreen.storyboard */,
 			);
 			path = Config;
@@ -474,7 +483,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B1089BAB2B4EE30E00174598 /* FirebaseAPIKeys.plist in Resources */,
 				B1A594E12B247C6200565C8C /* LaunchScreen.storyboard in Resources */,
+				B1089BAD2B4EE30E00174598 /* GoogleService-Info.plist in Resources */,
+				B1089BAC2B4EE30E00174598 /* NaverAPIKeys.plist in Resources */,
 				B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

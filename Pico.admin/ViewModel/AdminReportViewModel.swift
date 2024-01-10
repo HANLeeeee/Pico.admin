@@ -26,17 +26,17 @@ enum ReportSortType: CaseIterable {
     var name: String {
         switch self {
         case .dateDescending:
-            return "신고일 내림차순"
+            return "신고일 최신 순"
         case .dateAscending:
-            return "신고일 오름차순"
+            return "신고일 오래된 순"
         case .reportedNameDescending:
-            return "피신고자 내림차순"
+            return "피신고자 이름 가나다 역순"
         case .reportedNameAscending:
-            return "피신고자 오름차순"
+            return "피신고자 이름 가나다 순"
         case .reportNameDescending:
-            return "신고자 내림차순"
+            return "신고자 이름 가나다 역순"
         case .reportNameAscending:
-            return "신고자 오름차순"
+            return "신고자 이름 가나다 순"
         }
     }
     
