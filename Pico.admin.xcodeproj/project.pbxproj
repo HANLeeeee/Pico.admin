@@ -16,7 +16,7 @@
 		B1A39D152B2238E30050A33E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D142B2238E30050A33E /* SceneDelegate.swift */; };
 		B1A39D172B2238E30050A33E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D162B2238E30050A33E /* ViewController.swift */; };
 		B1A39D1C2B2238E80050A33E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B1A39D1B2B2238E80050A33E /* Assets.xcassets */; };
-		B1A39D2A2B2238E90050A33E /* pico_adminTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D292B2238E90050A33E /* pico_adminTests.swift */; };
+		B1A39D2A2B2238E90050A33E /* DoubleExtensionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D292B2238E90050A33E /* DoubleExtensionTests.swift */; };
 		B1A39D342B2238E90050A33E /* pico_adminUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D332B2238E90050A33E /* pico_adminUITests.swift */; };
 		B1A39D362B2238E90050A33E /* pico_adminUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D352B2238E90050A33E /* pico_adminUITestsLaunchTests.swift */; };
 		B1A39D532B22398E0050A33E /* AdminReportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1A39D442B22398E0050A33E /* AdminReportViewModel.swift */; };
@@ -101,7 +101,7 @@
 		B1A39D1B2B2238E80050A33E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B1A39D202B2238E80050A33E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B1A39D252B2238E90050A33E /* Pico.adminTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pico.adminTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B1A39D292B2238E90050A33E /* pico_adminTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminTests.swift; sourceTree = "<group>"; };
+		B1A39D292B2238E90050A33E /* DoubleExtensionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleExtensionTests.swift; sourceTree = "<group>"; };
 		B1A39D2F2B2238E90050A33E /* Pico.adminUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Pico.adminUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B1A39D332B2238E90050A33E /* pico_adminUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminUITests.swift; sourceTree = "<group>"; };
 		B1A39D352B2238E90050A33E /* pico_adminUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pico_adminUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		B1A39D282B2238E90050A33E /* pico.adminTests */ = {
 			isa = PBXGroup;
 			children = (
-				B1A39D292B2238E90050A33E /* pico_adminTests.swift */,
+				B1A39D292B2238E90050A33E /* DoubleExtensionTests.swift */,
 			);
 			path = pico.adminTests;
 			sourceTree = "<group>";
@@ -557,7 +557,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B1A39D2A2B2238E90050A33E /* pico_adminTests.swift in Sources */,
+				B1A39D2A2B2238E90050A33E /* DoubleExtensionTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
