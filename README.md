@@ -195,16 +195,6 @@ case .recordHeader:
     cell.config(publisher: cellRecordTypePublish)
     cell.selectionStyle = .none
     return cell
-
-case .record:
-    let cell = tableView.dequeueReusableCell(forIndexPath: indexPath, cellType: AdminUserTableViewCell.self)    
-    switch currentRecordType {
-    case .report: // ...(중략)
-    case .block: // ...(중략)
-    case .like: // ...(중략)
-    case .payment: // ...(중략)
-    }
-    return cell
 ```
 
 ```swift
