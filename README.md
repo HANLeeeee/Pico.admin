@@ -1,10 +1,6 @@
 # PICO ver.관리자
 
-
-<img src = "https://github.com/HANLeeeee/Pico.admin/assets/74815957/51b4373a-406b-42b5-854f-674f312a6f95" width=200>
-
-
-<br/><br/>
+<br/>
 
 ## 📌 프로젝트 소개
 > 2023.10.05 ~ 2023.10.20 (2주간) <br/>
@@ -25,34 +21,6 @@
 
 
 ##  📌 구현 내용
-<details>
-<summary><h3>CodeBase로 오토레이아웃 구현</h3></summary>
-  
-- Snapkit 라이브러리 사용하여 오토레이아웃을 구현하였습니다.
-- 잊을 수 있는 translatesAutoresizingMaskIntoConstraints 및 isActive 를 생략하면서 간결한 코드를 작성할 수 있었습니다.
-
-```swift
-textFieldView.snp.makeConstraints { make in
-    make.top.equalTo(view.safeAreaLayoutGuide).offset(padding)
-    make.leading.equalTo(padding)
-    make.height.equalTo(40)
-}
-```
-<br/>
-
-- remakeConstraints 나 updateConstraints 를 사용하여 쉽게 제약조건을 수정할 수 있었습니다.
-```swift
-sectionView.snp.remakeConstraints { make in
-    make.top.equalTo(moreButton.snp.bottom).offset(20)
-    make.leading.trailing.equalTo(0)
-    make.height.equalTo(10)
-    make.bottom.equalTo(-10)
-}
-```
-
-<br/>
-
-</details>
 
 <details>
 <summary><h3>RxCocoa와 RxSwift 사용하여 MVVM 적용</h3></summary>
