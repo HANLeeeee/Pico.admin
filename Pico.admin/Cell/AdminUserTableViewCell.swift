@@ -179,6 +179,7 @@ extension AdminUserTableViewCell {
         
         mbtiLabel.snp.makeConstraints { make in
             make.leading.equalTo(nameLabel.snp.trailing).offset(10)
+            make.trailing.lessThanOrEqualToSuperview().offset(-10)
             make.centerY.equalTo(nameLabel)
             make.height.equalTo(mbtiLabel.frame.size.height)
             make.width.equalTo(mbtiLabel.frame.size.width)

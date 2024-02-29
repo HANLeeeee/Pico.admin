@@ -192,7 +192,7 @@ final class AdminUserDetailViewController: UIViewController {
         output.resultRecordType
             .withUnretained(self)
             .subscribe { viewController, recordType in
-                print("선택한 레코드타입 도착, \(recordType)")
+                print("selectedRecordType \(recordType)")
                 viewController.currentRecordType = recordType
                 viewController.scrollToRow()
             }
@@ -201,7 +201,7 @@ final class AdminUserDetailViewController: UIViewController {
         output.needToRefresh
             .withUnretained(self)
             .subscribe { viewController, _ in
-                print("viewController 리프레시 도착, 신고 \(viewController.viewModel.reportList.count), 좋아요 \(viewController.viewModel.likeList.count)")
+                print("viewController 리프레시 도착")
             }
             .disposed(by: disposeBag)
         
@@ -241,7 +241,6 @@ final class AdminUserDetailViewController: UIViewController {
     }
     
     private func reloadRecordSection() {
-        print("리로리로리로리드")
         let emptyIndex: Int = TableViewCase.empty.rawValue
         let recordIndex: Int = TableViewCase.record.rawValue
         tableView.reloadSections(IndexSet(emptyIndex...recordIndex), with: .none)

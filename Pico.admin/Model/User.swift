@@ -27,6 +27,7 @@ struct User: Codable, Hashable {
     
     let chuCount: Int
     let isSubscribe: Bool
+    let isOnline: Bool?
     
     var age: Int {
         let calendar = Calendar.current
