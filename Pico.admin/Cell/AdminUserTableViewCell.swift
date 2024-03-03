@@ -77,8 +77,10 @@ final class AdminUserTableViewCell: UITableViewCell {
     
     private func setData(imageUrl: String, nickName: String, age: Int, mbti: MBTIType) {
         guard let url = URL(string: imageUrl) else { return }
-        profileImageView.kf.indicatorType = .custom(indicator: CustomIndicator(cycleSize: .small))
-        profileImageView.kf.setImage(with: url)
+//        profileImageView.kf.indicatorType = .custom(indicator: CustomIndicator(cycleSize: .small))
+//        profileImageView.kf.setImage(with: url)
+//        profileImageView.setImage(url: url)
+        profileImageView.setImage(urlString: imageUrl)
         nameLabel.text = "\(nickName), \(age)"
         mbtiLabel.setMbti(mbti: mbti)
         mbtiLabel.isHidden = false
