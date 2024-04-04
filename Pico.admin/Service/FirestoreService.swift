@@ -207,8 +207,14 @@ final class FirestoreService {
                         guard let data = try? document.data(as: dataType) else { return }
                         temp = data
                     case .unsubscribe:
-                        guard let data = try? document.data(as: Unsubscribe.self) else { return }
-                        temp = data.user as! T
+                        let data = try? document.data(as: Unsubscribe.self)
+                        guard let dataUser = data?.user else {
+                            let data = try? document.data(as: User.self)
+                            temp = data as! T
+                            result.append(temp)
+                            continue
+                        }
+                        temp = dataUser as! T
                     case .stop:
                         guard let data = try? document.data(as: Stop.self) else { return }
                         temp = data.user as! T
